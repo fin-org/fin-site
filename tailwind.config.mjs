@@ -98,9 +98,13 @@ export default {
             // '--tw-prose-invert-kbd-shadows': hexToRgb(colors.white),
             "--tw-prose-invert-code": grayDark[12],
             "--tw-prose-invert-pre-code": grayDark[12],
-            "--tw-prose-invert-pre-bg": grayDark[3],
+            "--tw-prose-invert-pre-bg": grayDark[4],
             "--tw-prose-invert-th-borders": grayDark[8],
             "--tw-prose-invert-td-borders": grayDark[6],
+
+            // blockquote
+            "blockquote p::before": { content: "none" },
+            "blockquote p::after": { content: "none" },
           },
         },
       },
