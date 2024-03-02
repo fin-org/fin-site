@@ -1,0 +1,60 @@
+---
+import "ui/styles.css";
+import iconSVG from "assets/icon.svg";
+import iconAppleSVG from "assets/apple-touch-icon.png";
+import fontUrl from "assets/sono.woff2";
+// import defaultShareImage from "assets/share.jpg";
+
+export interface Props {
+  title: string;
+  description: string;
+  searchTitle?: string;
+  robots?: "noindex";
+  ogType?: "website" | "article";
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  themeColor?: string;
+}
+
+const {
+  title,
+  description,
+  robots = "noindex", // TODO remove for launch
+  ogType = "website",
+  ogTitle = title,
+  ogDescription = description,
+  ogImage, // defaultShareImage.src,
+  themeColor = "#0ea5e9",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html class="h-full" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {robots && <meta name="robots" content={robots} />}
+    <slot name="og">
+      <meta property="og:type" content={ogType} />
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDescription} />
+      <meta property="og:url" content={canonicalURL} />
+      {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.url)} />}
+    </slot>
+    <link rel="icon" href={iconSVG.src} type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href={iconAppleSVG.src} />
+    {themeColor && <meta name="theme-color" content={themeColor} />}
+    <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
+  </head>
+  <body class="flex h-full flex-col">
+    <slot />
+  </body>
+</html>
