@@ -54,7 +54,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
     <slot name="head" />
   </head>
-  <body class="flex h-full flex-col">
+  <body
+    class="bg-gray-1 text-gray-12 dark:bg-grayDark-2 dark:text-grayDark-12 flex h-full flex-col items-stretch"
+  >
     <slot />
   </body>
 </html>
