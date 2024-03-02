@@ -1,5 +1,6 @@
 ---
 import Html from "ui/html.astro";
+import Block from "ui/block.astro";
 ---
 
 <Html title="Fin Text Format" description="A general purpose notation for data interchange">
@@ -12,7 +13,7 @@ import Html from "ui/html.astro";
               Fin Text Format
             </h1>
             <a
-              class="bg-red-9 dark:bg-redDark-9 text-gray-1 ml-2 inline-flex rounded px-2 py-px text-sm font-bold uppercase hover:underline sm:text-base"
+              class="ml-2 inline-flex rounded bg-red-9 px-2 py-px text-sm font-bold uppercase text-gray-1 hover:underline sm:text-base dark:bg-redDark-9"
               href="/dev-process"
             >
               unstable
@@ -20,9 +21,10 @@ import Html from "ui/html.astro";
           </div>
           <p class="text-sm sm:text-base">A general purpose notation for data interchange.</p>
         </div>
+        <Block id="test" />
       </div>
       <pre
-        class="bg-gray-3 dark:bg-grayDark-5 w-full overflow-x-auto p-3 text-sm leading-tight sm:max-w-lg sm:rounded-lg sm:text-base sm:leading-tight">
+        class="w-full overflow-x-auto bg-gray-3 p-3 text-sm leading-tight sm:max-w-lg sm:rounded-lg sm:text-base sm:leading-tight dark:bg-grayDark-5">
       </pre>
     </div>
   </div>

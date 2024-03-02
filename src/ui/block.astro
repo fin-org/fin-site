@@ -1,0 +1,15 @@
+---
+import { getEntry } from "astro:content";
+
+interface Props {
+  id: string;
+}
+
+const entry = await getEntry("blocks", Astro.props.id);
+if (!entry) throw new Error("block not found");
+const { Content } = await entry.render();
+---
+
+<div class="prose dark:prose-invert">
+  <Content />
+</div>
