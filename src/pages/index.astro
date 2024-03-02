@@ -1,6 +1,7 @@
 ---
 import Html from "ui/html.astro";
 import Block from "ui/block.astro";
+import HeroCodeExample from "ui/code/hero.astro";
 ---
 
 <Html title="Fin Text Format" description="A general purpose notation for data interchange">
@@ -21,11 +22,31 @@ import Block from "ui/block.astro";
           </div>
           <p class="">A general purpose notation for data interchange.</p>
         </div>
-        <Block id="test" fullWidth={true} />
+        <Block id="hero" fullWidth={true} />
       </div>
-      <pre
-        class="w-full overflow-x-auto bg-gray-3 p-3 text-sm leading-tight sm:max-w-lg sm:rounded-lg sm:text-base sm:leading-tight dark:bg-grayDark-5">
-      </pre>
+      <HeroCodeExample />
     </div>
+  </div>
+
+  <div id="simple" class="p-4">
+    <div>TODO #simple</div>
+    <div>stick to value semantics! list stuff that's out of scope</div>
+    <div>small set of core value types that compose</div>
+    <div>minimal syntax, minimal overloading</div>
+    <div>quick to internalize</div>
+  </div>
+
+  <div id="versatile" class="p-4">
+    <div>TODO #versatile</div>
+    <div>high leverage - powerful</div>
+    <div>symbols and tagged collections are natural fit for representing code DSLs</div>
+    <div>they also enable / play into extensibility</div>
+  </div>
+
+  <div id="extensible" class="p-4">
+    <div>TODO #extensible</div>
+    <div>explicit extension points - symbol prefixes</div>
+    <div>reserved prefixes for built-in extensions</div>
+    <div>builtins encourage rich interop (can push standards)</div>
   </div>
 </Html>
