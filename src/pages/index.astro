@@ -1,52 +1,55 @@
 ---
 import Html from "ui/html.astro";
 import Block from "ui/block.astro";
-import HeroCodeExample from "ui/code/hero.astro";
+import Showcase from "ui/showcase.astro";
+import IntroExample from "ui/code/intro.astro";
+import VersatileExample from "ui/code/versatile.astro";
+import ExtensibleExample from "ui/code/extensible.astro";
+import SyntaxExample from "ui/code/syntax.astro";
 ---
 
 <Html title="Fin Text Format" description="A general purpose notation for data interchange">
-  <div class="mx-auto w-full max-w-7xl py-4 sm:py-16">
-    <div class="flex flex-col items-center gap-4 sm:gap-16 lg:flex-row lg:px-8">
-      <div class="w-full px-4 sm:px-8 lg:px-0">
-        <div class="mb-8">
-          <div class="inline-flex items-center gap-2">
-            <h1 class="text-2xl font-bold leading-none sm:text-4xl sm:leading-none">
-              Fin Text Format
-            </h1>
-            <a
-              class="ml-2 inline-flex rounded bg-red-9 px-2 py-px text-sm font-bold uppercase text-gray-1 hover:underline sm:text-base dark:bg-redDark-9"
-              href="/dev-process"
-            >
-              unstable
-            </a>
-          </div>
-          <p class="">A general purpose notation for data interchange.</p>
+  <Showcase>
+    <div slot="content">
+      <div class="mb-8">
+        <div class="inline-flex items-center gap-2">
+          <h1 class="text-2xl font-bold leading-none sm:text-4xl sm:leading-none">
+            Fin Text Format
+          </h1>
+          <a
+            class="ml-2 inline-flex rounded bg-red-9 px-2 py-px text-sm font-bold uppercase text-gray-1 hover:underline sm:text-base dark:bg-redDark-9"
+            href="/dev-process"
+          >
+            unstable
+          </a>
         </div>
-        <Block id="hero" fullWidth={true} />
+        <p class="">A general purpose notation for data interchange.</p>
       </div>
-      <HeroCodeExample />
+      <Block id="hero" fullWidth={true} />
     </div>
-  </div>
+    <IntroExample slot="code" />
+  </Showcase>
 
-  <div id="simple" class="p-4">
-    <div>TODO #simple</div>
-    <div>stick to value semantics! list stuff that's out of scope</div>
-    <div>small set of core value types that compose</div>
-    <div>minimal syntax, minimal overloading</div>
-    <div>quick to internalize</div>
-  </div>
+  <Showcase flip={true} id="versatile">
+    <Block id="versatile" fullWidth={true} slot="content" />
+    <VersatileExample slot="code" />
+  </Showcase>
 
-  <div id="versatile" class="p-4">
-    <div>TODO #versatile</div>
-    <div>high leverage - powerful</div>
-    <div>symbols and tagged collections are natural fit for representing code DSLs</div>
-    <div>they also enable / play into extensibility</div>
-  </div>
+  <Showcase id="extensible">
+    <Block id="extensible" fullWidth={true} slot="content" />
+    <ExtensibleExample slot="code" />
+  </Showcase>
 
-  <div id="extensible" class="p-4">
-    <div>TODO #extensible</div>
-    <div>explicit extension points - symbol prefixes</div>
-    <div>reserved prefixes for built-in extensions</div>
-    <div>builtins encourage rich interop (can push standards)</div>
-  </div>
+  <Showcase flip={true} id="syntax">
+    <Block id="syntax" fullWidth={true} slot="content" />
+    <SyntaxExample slot="code" />
+  </Showcase>
+
+  <footer class="mt-8 px-4 py-8 text-center sm:mt-16">
+    <div>
+      Fin is released under the
+      <a href="/license" class="font-medium text-blue-10 dark:text-blueDark-10">MIT License</a>
+    </div>
+    <div class="text-sm">Created by Michael McClintock & contributors</div>
+  </footer>
 </Html>
