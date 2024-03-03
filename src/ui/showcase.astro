@@ -7,7 +7,7 @@ interface Props {
 const { flip = false, id } = Astro.props;
 ---
 
-<div id={id} class="mx-auto w-full max-w-7xl pt-8 sm:pt-24">
+<div id={id} class="mx-auto w-full max-w-7xl pt-8 sm:py-20">
   <div
     class:list={[
       "flex flex-col items-center justify-center gap-4 sm:gap-12 lg:px-8",
@@ -18,7 +18,7 @@ const { flip = false, id } = Astro.props;
       <slot name="content" />
     </div>
     <div
-      class="w-full overflow-x-auto bg-gray-3 p-4 text-sm leading-tight sm:max-w-lg sm:rounded-lg sm:text-base sm:leading-tight dark:bg-grayDark-3"
+      class="w-full overflow-x-auto bg-gray-3 p-4 text-sm leading-tight sm:max-w-lg sm:rounded-lg dark:bg-grayDark-3"
     >
       <slot name="code" />
     </div>

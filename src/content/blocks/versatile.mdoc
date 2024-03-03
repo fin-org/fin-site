@@ -1,10 +1,9 @@
-## Versatile
+## Versatile Data Model
 
-core value types
-
-- high leverage - powerful
-- symbols and tagged collections are natural fit for representing code DSLs
-- they also enable / play into extensibility (key ingredient)
-- stick to value semantics! list stuff that's out of scope
-- minimal overloading
-- quick to internalise
+- Fin has simple, self-describing, value semantics (like JSON). It is not concerned with higher
+  level concepts such as schemas, validation or remote procedure calls. There is no concept of
+  objects or references.
+- The data model is a small set of core value types (symbols, strings, numbers, arrays and maps)
+  which are combined to form a top level value.
+- Symbols and tagged collections make a big difference when producing data with names and
+  identifiers (e.g. programs and DSLs).

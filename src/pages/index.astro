@@ -13,7 +13,7 @@ import SyntaxExample from "ui/code/syntax.astro";
     <div slot="content">
       <div class="mb-8">
         <div class="inline-flex items-center gap-2">
-          <h1 class="text-2xl font-bold leading-none sm:text-4xl sm:leading-none">
+          <h1 class="text-2xl font-black leading-none sm:text-4xl sm:leading-none">
             Fin Text Format
           </h1>
           <a
@@ -31,17 +31,23 @@ import SyntaxExample from "ui/code/syntax.astro";
   </Showcase>
 
   <Showcase flip={true} id="versatile">
-    <Block id="versatile" fullWidth={true} slot="content" />
+    <div class="mb-12" slot="content">
+      <Block id="versatile" fullWidth={true} />
+    </div>
     <VersatileExample slot="code" />
   </Showcase>
 
   <Showcase id="extensible">
-    <Block id="extensible" fullWidth={true} slot="content" />
+    <div class="mb-12" slot="content">
+      <Block id="extensible" fullWidth={true} slot="content" />
+    </div>
     <ExtensibleExample slot="code" />
   </Showcase>
 
   <Showcase flip={true} id="syntax">
-    <Block id="syntax" fullWidth={true} slot="content" />
+    <div class="mb-12" slot="content">
+      <Block id="syntax" fullWidth={true} slot="content" />
+    </div>
     <SyntaxExample slot="code" />
   </Showcase>
 
