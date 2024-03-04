@@ -30,6 +30,6 @@
     @apply text-purple-10 dark:text-purpleDark-10;
   }
   .fin-pun {
-    @apply text-gray-9 dark:text-grayDark-9;
+    @apply text-gray-8 dark:text-grayDark-8;
   }
 }

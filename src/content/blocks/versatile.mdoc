@@ -1,8 +1,11 @@
 ## Versatile Data Model
 
-- Fin has simple, self-describing, value semantics (like JSON). It's not concerned with higher level
-  concepts such as schemas, validation, objects, references or RPC.
-- The data model is a small set of core value types (symbols, strings, numbers, arrays and maps)
-  which are combined to form a top level value.
-- Symbols and tagged collections make a big difference when producing data with names and
-  identifiers (e.g. programs and DSLs).
+Fin has simple, self-describing, value semantics (like JSON). It's not concerned with higher level
+concepts such as schemas, validation, objects, references or RPC.
+
+The data model is a small set of core value types (symbols, strings, numbers, arrays and maps) which
+are combined to form a top level value.
+
+The collection types (arrays and maps) are especially versatile, supporting elements of any type.
+They can also be _tagged_ with a leading symbol. Tagged collections are a natural fit for describing
+programs and DSLs but are also used for [extension](#extensible).
