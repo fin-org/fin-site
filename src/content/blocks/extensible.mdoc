@@ -1,5 +1,11 @@
 ## Explicit Extensibility
 
-- explicit extension points - symbol prefixes
-- reserved prefixes for built-in extensions
-- builtins encourage rich interop (can push standards)
+Fin dedicates part of its syntax (a subset of symbols) for use as an extension mechanism. Users can
+register custom logic to run at extension points (includes tagged collections).
+
+Having clear extensibility is nice, but it doesn't solve the issue where users are forced to write
+extensions for common value types that are practically universal.
+
+Fin solves this by providing [builtins](/builtins) - a curated set of extensions (not part of the
+core spec) that leverage established and emerging standards. Compliant fin libraries support these
+on a best-effort basis resulting in rich interoperability out of the box.
