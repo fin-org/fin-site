@@ -1,6 +1,11 @@
 ## Intuitive Syntax
 
-- minimal syntax for humans and computers
-- flexible input processing
-- canonical output (the formatter is built in)
-- comments & raw strings expand collections
+Machines don't require comments, commas, newlines or indentation to correctly convey values. All
+that is needed is a minimal syntax that covers the data model.
+
+However, fin is designed for us too, so it has extra _human_ elements (comments, raw strings and
+commas). In fin these elements directly control the formatted output in an obvious, canonical way.
+The idea (inspired by commas in Zig) is showcased in the example.
+
+The result is fin encoders can output formatted text suitable for humans and machines with **zero**
+configuration. No external formatters are required.

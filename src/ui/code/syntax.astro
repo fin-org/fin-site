@@ -1,2 +1,26 @@
-<pre><code><span class="fin-com"># TODO</span>
+<pre><code># symbols, numbers & escaped strings 
+# have INLINE syntax
+inline "start & end on the same line"
+
+# comments and raw strings are EXPANDED
+| by definition they require 
+| a newline to terminate
+
+# collections can be either. they're
+# expanded if any element is expanded
+
+expanded_array [
+  # this comment expands the array!
+  # elements are indented on each line
+  # use , for multiple elements per line
+  1, 2
+]
+
+ex_map (
+  in_arr [all, elements, "are inline"]
+  ex_arr [
+    | this raw string forces ex_arr
+    | and ex_map to expand!
+  ]
+)
 </code></pre>
