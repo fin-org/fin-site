@@ -12,22 +12,15 @@
   <span class="fin-str">|raw strings are not escaped</span>
   <span class="fin-str">|and can span mutliple lines</span>
 
-  <span class="fin-com"># arrays</span>
+  <span class="fin-com"># collections (arrays & maps)</span>
   <span class="fin-pun">[], </span><span class="fin-sym">tagged</span><span class="fin-pun">[</span><span class="fin-str">"array"</span><span class="fin-pun">], </span><span class="fin-pun">[</span><span class="fin-num">98</span><span class="fin-pun">, </span><span class="fin-sym">goal</span><span class="fin-pun">, </span><span class="fin-pun">[</span><span class="fin-pun">]</span><span class="fin-pun">]</span>
-
-  <span class="fin-com"># maps</span>
   <span class="fin-pun">(), </span><span class="fin-pun">(</span><span class="fin-sym">key</span> <span class="fin-str">"val"</span><span class="fin-pun">, </span><span class="fin-num">55</span> <span class="fin-sym">tagged:map</span><span class="fin-pun">()</span><span class="fin-pun">)</span>
 
-  <span class="fin-com"># built-in fin extensions</span>
-  <span class="fin-ext">true</span><span class="fin-pun">, </span><span class="fin-ext">false</span>
-  <span class="fin-ext">fin:ts</span><span class="fin-pun">[</span><span class="fin-str">"2024-02-26T03:01:13.644Z"</span><span class="fin-pun">]</span>
-
-  <span class="fin-com"># custom extensions</span>
+  <span class="fin-com"># extensibility</span>
+  <span class="fin-ext">true</span><span class="fin-pun">, </span><span class="fin-ext">fin:ts</span><span class="fin-pun">[</span><span class="fin-str">"2024-02-26T03:01:13.644Z"</span><span class="fin-pun">]</span>
   <span class="fin-ext">ext:null</span><span class="fin-pun">, </span><span class="fin-ext">ext:nan</span><span class="fin-pun">, </span><span class="fin-ext">ext:loc</span><span class="fin-pun">(</span><span class="fin-sym">x</span> <span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-sym">y</span> <span class="fin-num">2</span><span class="fin-pun">)</span>
-
 <span class="fin-pun">]</span>
 
-<span class="fin-com"># the top level is an implicit map</span>
-<span class="fin-sym">x</span> <span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-sym">y</span> <span class="fin-num">2</span>
-<span class="fin-sym">supports</span> <span class="fin-str">"streaming!"</span>
+<span class="fin-com"># the top level value is an implicit map</span>
+<span class="fin-sym">x</span> <span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-sym">y</span> <span class="fin-num">2</span><span class="fin-pun">, </span><span class="fin-sym">supports</span> <span class="fin-str">"streaming!"</span>
 </code></pre>
