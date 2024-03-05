@@ -1,26 +1,24 @@
-<pre><code># symbols, numbers & escaped strings 
-# have INLINE syntax
-inline "start & end on the same line"
+<pre><code><span class="fin-com"># symbols, numbers & escaped strings are INLINE</span>
+<span class="fin-sym">inline</span> <span class="fin-str">"start & end on the same line"</span>
 
-# comments and raw strings are EXPANDED
-| by definition they require 
-| a newline to terminate
+<span class="fin-com"># comments and raw strings are EXPANDED</span>
+<span class="fin-str">| by definition they require 
+| a newline to terminate</span>
 
-# collections can be either. they're
-# expanded if any element is expanded
-
-expanded_array [
-  # this comment expands the array!
+<span class="fin-com"># collections can be either
+# they expand if any element is expanded</span>
+<span class="fin-sym">expanded_array</span> <span class="fin-pun">[</span>
+  <span class="fin-com"># this comment expands the array!
   # elements are indented on each line
-  # use , for multiple elements per line
-  1, 2
-]
+  # comma signals multiple elements per line</span>
+  <span class="fin-num">1</span><span class="fin-com">,</span> <span class="fin-num">2</span>
+<span class="fin-pun">]</span>
 
-ex_map (
-  in_arr [all, elements, "are inline"]
-  ex_arr [
-    | this raw string forces ex_arr
-    | and ex_map to expand!
-  ]
-)
+<span class="fin-sym">ex_map</span> <span class="fin-pun">(</span>
+  <span class="fin-sym">in_arr</span> <span class="fin-pun">[</span><span class="fin-sym">all</span><span class="fin-pun">, </span><span class="fin-sym">elements</span><span class="fin-pun">, </span><span class="fin-str">"are inline"</span><span class="fin-pun">]</span>
+  <span class="fin-sym">ex_arr</span> <span class="fin-pun">[</span>
+    <span class="fin-str">| this raw string forces ex_arr
+    | and ex_map to expand!</span>
+  <span class="fin-pun">]</span>
+<span class="fin-pun">)</span>
 </code></pre>
