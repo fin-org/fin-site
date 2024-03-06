@@ -1,0 +1,43 @@
+---
+const links = [
+  { href: "/spec", label: "Specification", active: Astro.url.pathname.startsWith("/spec") },
+  { href: "/builtins", label: "Builtins", active: Astro.url.pathname.startsWith("/builtins") },
+  {
+    href: "/contribute",
+    label: "Contribute",
+    active: Astro.url.pathname.startsWith("/contribute"),
+  },
+  { href: "https://github.com/fin-org", label: "Code", active: false },
+];
+---
+
+<header
+  class="flex w-full max-w-7xl flex-col justify-between gap-2 p-4 md:flex-row md:items-center"
+>
+  <div>
+    <div class="inline-flex items-center gap-2">
+      <h1 class="text-2xl font-black leading-none hover:underline sm:text-2xl sm:leading-none">
+        <a href="/">Fin Text Format</a>
+      </h1>
+      <a
+        class="inline-flex rounded bg-red-9 px-2 py-px text-sm font-bold uppercase text-gray-1 hover:underline dark:bg-redDark-9"
+        href="/spec"
+      >
+        unstable
+      </a>
+    </div>
+    <p class="text-sm leading-tight tracking-tight">
+      A general purpose notation for data interchange.
+    </p>
+  </div>
+
+  <div class="flex justify-between gap-2 md:gap-4">
+    {
+      links.map((l) => (
+        <a class:list={[l.active ? "underline" : "", "hover:underline"]} href={l.href}>
+          {l.label}
+        </a>
+      ))
+    }
+  </div>
+</header>
