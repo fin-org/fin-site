@@ -1,3 +1,40 @@
-## Fin Spec
+## Core Specification
 
-TODO
+- File extension is `.fin`
+- MIME type is `application/fin`
+- The fin text format is defined in terms of Unicode text (code points).
+- Each code point is distinct and no Unicode normalisation is performed.
+- The only supported character encoding is UTF-8.
+- The UTF-8 byte order mark (BOM) may be stripped if present and disallowed from the remaining
+  input.
+
+### Normalisation
+
+The fin text format is designed to be authored by humans and as such invalid syntax is to be
+expected. In cases where the input is strictly invalid, but it can be determined precisely what the
+user was intending (unambiguous fix) then decoders should accept the invalid code. They should
+provide feedback to the user (via reporting) and fix it. This is a better experience than strictly
+failing on invalid input.
+
+**Normalisation only applies when decoding the text format**. This document will explicitly point
+out when normalisation should happen. Compliant fin text decoders must provide two modes
+
+- `strict` - fail immediately when invalid input is found.
+- `default` - collect issues, perform normalisation (as outlined in this document) and continue
+  decoding where possible.
+
+### Comments
+
+### Symbols
+
+### Numbers
+
+### Strings
+
+### Arrays
+
+### Maps
+
+### Top Level Value
+
+### Extension
