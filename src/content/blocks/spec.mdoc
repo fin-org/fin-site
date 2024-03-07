@@ -7,30 +7,34 @@
 
 - The fin format is defined in terms of Unicode text (code points).
 - Each code point is distinct and no Unicode normalisation is performed.
-- The only supported character encoding is UTF-8.
+- The only supported character encoding is UTF-8. All fin payloads must be valid UTF-8.
 - The UTF-8 byte order mark (BOM) can be stripped if present and disallowed from the remaining
   input.
 
 **Except** for within [comments](#comments) and [strings](#strings) fin notation uses a small subset
 of Unicode code points.
 
-- HT - Horizontal Tab `U+0009`
-- LF - Line Feed `U+000A`
-- SP - Space `U+0020`
-- `"` Quotation mark `U+0021` escaped [string](#strings)
-- `#` Hash `U+0023` [comment](#comments)
-- `(` Left parenthesis `U+0028` [map](#maps)
-- `)` Right parenthesis `U+0029` [map](#maps)
-- `,` Comma `U+002C` multiple values per line
-- `-` Hyphen / Minus `U+002C` [numbers](#numbers)
-- `.` Full stop `U+002E` [numbers](#numbers)
-- `0-9` Digits `U+0030-U+0039`
-- `:` Colon `U+003A` [symbols](#symbols)
-- `[` Left square bracket `U+005B` [array](#arrays)
-- `]` Right square bracket `U+005D` [array](#arrays)
-- `_` Low line / Underscore `U+005F` [symbol](#symbols)
-- `a-z` Lowercase alphabet `U+0061-U+007A`
-- `|` Vertical line `U+007C` raw [string](#strings)
+- HT - Horizontal Tab `U+0009`. Used to indent elements in expanded collections.
+- LF - Line Feed `U+000A`. Indicates a new line.
+- SP - Space `U+0020`.
+  - Used in [maps](#maps) to separate keys and values.
+  - Used after commas to space out collection elements on the same line.
+- `"` Quotation mark `U+0021`. Used to enclose escaped [strings](#strings)
+- `#` Hash `U+0023`. Used to initiate [comments](#comments)
+- `(` Left parenthesis `U+0028`. Initiate [maps](#maps)
+- `)` Right parenthesis `U+0029`. Terminate [maps](#maps)
+- `,` Comma `U+002C`. Separates multiple collection elements on the same line.
+- `-` Hyphen / Minus `U+002C`. Signals negative [numbers](#numbers) and exponents.
+- `.` Full stop `U+002E`. Marks decimal point in [numbers](#numbers).
+- `0-9` Digits `U+0030-U+0039`. Seen in [symbols](#symbols) and [numbers](#numbers).
+- `:` Colon `U+003A`. Used to break up [symbols](#symbols) into fragments.
+- `[` Left square bracket `U+005B`. Initiate [arrays](#arrays)
+- `]` Right square bracket `U+005D`. Terminate [arrays](#arrays)
+- `_` Low line / Underscore `U+005F`. Used to break up words in [symbols](#symbols).
+- `a-z` Lowercase alphabet `U+0061-U+007A`.
+  - Used in [symbols](#symbols).
+  - `e` is used to mark a [number](#numbers) exponent
+- `|` Vertical line `U+007C`. Used to initiate raw [strings](#strings)
 
 The following code points are strictly invalid but can be [normalised](#normalisation) in certain
 situations
