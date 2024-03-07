@@ -2,26 +2,54 @@
 
 - File extension is `.fin`
 - MIME type is `application/fin`
-- The fin text format is defined in terms of Unicode text (code points).
+
+### Text representation
+
+- The fin format is defined in terms of Unicode text (code points).
 - Each code point is distinct and no Unicode normalisation is performed.
 - The only supported character encoding is UTF-8.
-- The UTF-8 byte order mark (BOM) may be stripped if present and disallowed from the remaining
+- The UTF-8 byte order mark (BOM) can be stripped if present and disallowed from the remaining
   input.
+
+**Except** for within [comments](#comments) and [strings](#strings) fin notation uses a small subset
+of Unicode code points.
+
+- HT - Horizontal Tab `U+0009`
+- LF - Line Feed `U+000A`
+- SP - Space `U+0020`
+- `"` Quotation mark `U+0021` escaped [string](#strings)
+- `#` Hash `U+0023` [comment](#comments)
+- `(` Left parenthesis `U+0028` [map](#maps)
+- `)` Right parenthesis `U+0029` [map](#maps)
+- `,` Comma `U+002C` multiple values per line
+- `-` Hyphen / Minus `U+002C` [numbers](#numbers)
+- `.` Full stop `U+002E` [numbers](#numbers)
+- `0-9` Digits `U+0030-U+0039`
+- `:` Colon `U+003A` [symbols](#symbols)
+- `[` Left square bracket `U+005B` [array](#arrays)
+- `]` Right square bracket `U+005D` [array](#arrays)
+- `_` Low line / Underscore `U+005F` [symbol](#symbols)
+- `a-z` Lowercase alphabet `U+0061-U+007A`
+- `|` Vertical line `U+007C` raw [string](#strings)
+
+The following code points are strictly invalid but can be [normalised](#normalisation) in certain
+situations
+
+- CR - Carriage Return `U+000D`
+- `+` Plus sign `U+002B`
+- `A-Z` Uppercase alphabet `U+0041-U+005A`
 
 ### Normalisation
 
 The fin text format is designed to be authored by humans and as such invalid syntax is to be
 expected. In cases where the input is strictly invalid, but it can be determined precisely what the
-user was intending (unambiguous fix) then decoders should accept the invalid code. They should
-provide feedback to the user (via reporting) and fix it. This is a better experience than strictly
-failing on invalid input.
+user was intending then decoders should accept the input, emit a warning, correct it and continue
+decoding. This specification will explicitly point out when normalisation occurs.
 
-**Normalisation only applies when decoding the text format**. This document will explicitly point
-out when normalisation should happen. Compliant fin text decoders must provide two modes
+Compliant fin decoders must provide two modes:
 
-- `strict` - fail immediately when invalid input is found.
-- `default` - collect issues, perform normalisation (as outlined in this document) and continue
-  decoding where possible.
+- `strict` - fail immediately when _any_ invalid input is detected.
+- `default` - if invalid input is correctable perform normalisation, otherwise fail immediately.
 
 ### Comments
 
