@@ -11,14 +11,14 @@
 - The UTF-8 byte order mark (BOM) can be stripped if present and disallowed from the remaining
   input.
 
-**Except** for within [comments](#comments) and [strings](#strings) fin notation uses a small subset
-of Unicode code points.
+**Except** for within [comments](#comments) and [strings](#strings) fin notation uses a _small_
+subset of Unicode code points.
 
 - HT - Horizontal Tab `U+0009`. Used to indent elements in expanded collections.
 - LF - Line Feed `U+000A`. Indicates a new line.
 - SP - Space `U+0020`.
   - Used in [maps](#maps) to separate keys and values.
-  - Used after commas to space out collection elements on the same line.
+  - Used after commas to space out inline collection elements.
 - `"` Quotation mark `U+0021`. Used to enclose escaped [strings](#strings)
 - `#` Hash `U+0023`. Used to initiate [comments](#comments)
 - `(` Left parenthesis `U+0028`. Initiate [maps](#maps)
@@ -53,7 +53,7 @@ decoding. This specification will explicitly point out when normalisation occurs
 Compliant fin decoders must provide two modes:
 
 - `strict` - fail immediately when _any_ invalid input is detected.
-- `default` - if invalid input is correctable perform normalisation, otherwise fail immediately.
+- `default` - if invalid input is correctable, perform normalisation, otherwise fail immediately.
 
 ### Comments
 

@@ -34,7 +34,13 @@ const links = [
   <div class="flex justify-between gap-2 md:gap-4">
     {
       links.map((l) => (
-        <a class:list={[l.active ? "underline" : "", "hover:underline"]} href={l.href}>
+        <a
+          class:list={[
+            l.active ? "underline" : "",
+            "font-medium text-blue-10 hover:underline dark:text-blueDark-10",
+          ]}
+          href={l.href}
+        >
           {l.label}
         </a>
       ))
