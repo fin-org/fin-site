@@ -1,39 +1,11 @@
 ---
 import Html from "ui/html.astro";
-import Block from "ui/block.astro";
 import Showcase from "ui/showcase.astro";
-import IntroExample from "ui/code/intro.astro";
-import VersatileExample from "ui/code/versatile.astro";
-import ExtensibleExample from "ui/code/extensible.astro";
-import SyntaxExample from "ui/code/syntax.astro";
 ---
 
 <Html title="Fin Text Format" description="A general purpose notation for data interchange">
-  <Showcase>
-    <div slot="content">
-      <Block id="hero" fullWidth={true} />
-    </div>
-    <IntroExample slot="code" />
-  </Showcase>
-
-  <Showcase flip={true} id="versatile">
-    <div class="mb-12" slot="content">
-      <Block id="versatile" fullWidth={true} />
-    </div>
-    <VersatileExample slot="code" />
-  </Showcase>
-
-  <Showcase id="extensible">
-    <div class="mb-12" slot="content">
-      <Block id="extensible" fullWidth={true} slot="content" />
-    </div>
-    <ExtensibleExample slot="code" />
-  </Showcase>
-
-  <Showcase flip={true} id="syntax">
-    <div class="mb-12" slot="content">
-      <Block id="syntax" fullWidth={true} slot="content" />
-    </div>
-    <SyntaxExample slot="code" />
-  </Showcase>
+  <Showcase id="intro" />
+  <Showcase flip={true} id="versatile" />
+  <Showcase id="extensible" />
+  <Showcase flip={true} id="syntax" />
 </Html>
