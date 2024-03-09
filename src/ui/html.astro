@@ -61,12 +61,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <Header />
     <slot />
     <div class="flex-grow"></div>
-    <footer class="mt-8 px-4 py-8 text-center sm:mt-0">
+    <footer class="mt-8 px-4 py-8 text-center text-gray-11 sm:mt-0 dark:text-grayDark-11">
       <div>
         Fin is released under the
         <a
           href="https://github.com/fin-org/fin-site?tab=MIT-1-ov-file"
-          class="font-medium text-blue-10 dark:text-blueDark-10">MIT License</a
+          class="font-medium text-gray-12 underline decoration-1 underline-offset-2 hover:decoration-2 dark:text-grayDark-12"
+          >MIT License</a
         >
       </div>
       <div class="text-sm">Created by Michael McClintock & contributors</div>

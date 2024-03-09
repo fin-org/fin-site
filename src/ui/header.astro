@@ -16,17 +16,18 @@ const links = [
 >
   <div>
     <div class="inline-flex items-center gap-2">
-      <h1 class="text-2xl font-black leading-none hover:underline sm:text-2xl sm:leading-none">
+      <h1
+        class="text-2xl font-black leading-none decoration-2 underline-offset-2 hover:underline sm:text-2xl sm:leading-none"
+      >
         <a href="/">Fin Text Format</a>
       </h1>
-      <a
-        class="inline-flex rounded bg-red-9 px-2 py-px text-sm font-bold uppercase text-gray-1 hover:underline dark:bg-redDark-9"
-        href="/spec"
+      <div
+        class="inline-flex rounded bg-red-9 px-2 py-px text-sm font-bold uppercase text-gray-1 dark:bg-redDark-9"
       >
         unstable
-      </a>
+      </div>
     </div>
-    <p class="text-sm leading-tight tracking-tight">
+    <p class="text-sm leading-tight tracking-tight text-gray-11 dark:text-grayDark-11">
       A general purpose notation for data interchange.
     </p>
   </div>
@@ -37,7 +38,7 @@ const links = [
         <a
           class:list={[
             l.active ? "underline" : "",
-            "font-medium text-blue-10 hover:underline dark:text-blueDark-10",
+            "font-medium text-gray-12 decoration-1 underline-offset-2 dark:text-grayDark-12",
           ]}
           href={l.href}
         >
