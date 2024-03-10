@@ -5,12 +5,12 @@
 
 ### Decoding Modes
 
-The fin text format is designed to be authored by humans and as such invalid syntax is to be
-expected. In cases where the input is strictly invalid, but it can be determined precisely what the
-user was intending then decoders should accept the input, emit a warning, correct it and continue
-decoding. This specification will explicitly point out when input is **correctable**.
+The fin text format is designed to be authored by humans so invalid syntax is to be expected. In
+cases where the input is strictly invalid, but it can be determined precisely what the user was
+intending then decoders should accept the input, emit a warning, correct it and continue decoding.
+This specification will explicitly point out when input is **correctable**.
 
-Compliant fin decoders must provide two modes:
+Fin decoders must provide two modes:
 
 - `strict` - fail immediately when _any_ invalid input is detected.
 - `default` - if invalid input is correctable, fix it, otherwise fail immediately.
@@ -20,7 +20,7 @@ Compliant fin decoders must provide two modes:
 - The fin format is defined in terms of Unicode text (code points).
 - Each code point is distinct (e.g. case-sensitive).
 - Fin encoders and decoders do not perform Unicode Normalization.
-- All fin payloads must be encoded using UTF-8.
+- All fin payloads must be encoded as UTF-8.
 - The UTF-8 byte order mark (BOM) will be stripped if present and disallowed for the remaining
   input.
 
@@ -30,9 +30,9 @@ be described as deceptive. On the other hand, Unicode does allow conveying text 
 Latin in its naturally intended form.
 
 Given the above trade-off fin adopts a cautious approach to including code points in the notation.
-All allowed code points can be broken up into two sets, the [core set](#core-set-cs) (**CS**) and
-the [extended set](#extended-set-es) (**ES**). Both sets are reduced in certain situations depending
-on the decoding mode (e.g. strict core set **SCS**)
+All allowed code points are broken up into two sets, the [core set](#core-set-cs) (**CS**) and the
+[extended set](#extended-set-es) (**ES**). Both sets are reduced in certain situations depending on
+the decoding mode (e.g. strict core set **SCS**)
 
 #### Core Set (CS)
 
@@ -46,7 +46,7 @@ The core set of code points is used for the majority of fin notation, everything
 - 10 digits **0-9**
 - 26 lowercase letters **a-z**
 - 26 uppercase letters **A-Z** (correctable)
-- 14 other
+- 14 other code points
   - space **SP**
   - **" # ( ) , - . : [ ] \_ |**
   - **+** (correctable)
@@ -74,12 +74,11 @@ Some notes on the core set.
 The extended set of code points is used for rich text support _within_ [strings](#strings) and
 [comments](#comments). It contains
 
-- 3 control codes **HT**, **LF** and **CR** (correctable). Same as **CS**
-- From the Basic Latin Code Block. All ASCII punctuation, symbols, digits and Latin alphabet code
-  points. `U+0020 - U+007E (incl.)`
+- 3 control codes **HT**, **LF** and **CR**.
+- All ASCII punctuation, symbols, digits and Latin alphabet code points. `U+0020 - U+007E (incl.)`
 - **TODO**
   - include Unicode code blocks for other languages, emojis etc.
-  - It is expected this set grow increase throughout the unstable development period.
+  - The expectation is that the extended set will grow throughout the unstable development period.
 
 ```
 control (3) = U+0009, U+000A, U+000D
@@ -91,8 +90,7 @@ Some notes on the extended set.
 
 - Is a superset of the [core set](#core-set-cs).
 - Any characters not in **ES** are illegal in all fin payloads
-  - Illegal characters are still conveyable using escape sequences in
-    [escaped strings](#escaped-strings)
+  - Illegal characters are still conveyable using [escaped strings](#escaped-strings)
 
 ### Symbols
 
@@ -104,11 +102,59 @@ Some notes on the extended set.
 
 ### Strings
 
+- Fin string literals convey Unicode text and are _guaranteed_ to represent a valid sequence of
+  UTF-8 bytes.
+  - [Extension](#extension) should be used for alternate interpretations and semantics (e.g. binary
+    to text encoding).
+- Two syntax forms are provided [escaped](#escaped-strings), and [raw](#raw-strings).
+- The notation for both forms uses the [extended set](#extended-set-es) of code points.
+
 #### Escaped Strings
+
+- Escaped strings are delimited by double quotation marks `"`.
+- They have **inline** notation (start and end on the same line).
+- Can represent **any** Unicode code point. Including those outside of [ES](#extended-set-es).
+- To achieve this, escape sequence interpretation is used.
+  - `\` initiates an escape sequence.
+    - Can be escaped `\\` to appear within the string.
+    - An error occurs if the next code point results in an unknown escape sequence.
+  - `"` will terminate the string.
+    - Can be escaped `\"` to appear within the string.
+  - The 3 control codes within [ES](#extended-set-es) are **correctable** by replacing them with
+    escape sequences
+    - `\t` - Horizontal tab
+    - `\n` - Line feed
+    - `\r` - Carriage return
+  - All code points outside [ES](#extended-set-es) must use the Unicode escape sequence to be
+    included in the string.
+    - `\u{hex}` where `hex` is the hexadecimal number for the code point
+    - If required the hex code will be **corrected** to lowercase and leading zeros trimmed (except
+      for 0).
 
 {% code_example id="escaped_strings" /%}
 
 #### Raw Strings
+
+- A notation for strings without escaping or any interpretation.
+- Line feeds cannot be escaped so by definition raw strings can _expand_ to multiple lines. Raw
+  strings have **expanded** notation.
+- Raw strings are initiated by a vertical bar `|`
+- The are terminated by the following sequence
+  - A line feed
+  - Any number of optional spaces or horizontal tabs
+  - A code point other than `|`
+- The raw string contains all code points that follow `|`, up to and including **LF**, for all lines
+  that make up the string.
+- Carriage return **CR** are strictly invalid in raw strings and can be **corrected** by removing
+  them entirely.
+- Raw strings are unable to represent code points outside the [extended set](#extended-set-es). So
+  they're more limited than [escaped strings](#escaped-strings) in what they can represent.
+  - Raw strings can always be converted to escaped strings, but the reverse does not hold.
+- Machines have no issue dealing escaped strings however for humans it can be challenging to deal
+  with escaped strings in certain situations
+  - text that frequently uses `\` or has its own escaping scheme (regex)
+  - text with many lines perhaps with indentation (verbatim code snippets)
+- Raw strings are a notation for _humans_.
 
 {% code_example id="raw_strings" /%}
 
