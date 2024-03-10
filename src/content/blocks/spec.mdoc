@@ -30,9 +30,9 @@ be described as deceptive. On the other hand, Unicode does allow conveying text 
 Latin in its naturally intended form.
 
 Given the above trade-off fin adopts a cautious approach to including code points in the notation.
-All allowed code points can be broken up into two sets the core set (**CS**) and the extended set
-(**ES**). Both sets are reduced in certain situations depending on the decoding mode (e.g. strict
-core set **SCS**)
+All allowed code points can be broken up into two sets, the [core set](#core-set-cs) (**CS**) and
+the [extended set](#extended-set-es) (**ES**). Both sets are reduced in certain situations depending
+on the decoding mode (e.g. strict core set **SCS**)
 
 #### Core Set (CS)
 
@@ -77,7 +77,9 @@ The extended set of code points is used for rich text support _within_ [strings]
 - 3 control codes **HT**, **LF** and **CR** (correctable). Same as **CS**
 - From the Basic Latin Code Block. All ASCII punctuation, symbols, digits and Latin alphabet code
   points. `U+0020 - U+007E (incl.)`
-- **TODO** include Unicode code blocks for other languages, emojis etc.
+- **TODO**
+  - include Unicode code blocks for other languages, emojis etc.
+  - It is expected this set grow increase throughout the unstable development period.
 
 ```
 control (3) = U+0009, U+000A, U+000D
@@ -87,27 +89,41 @@ TODO
 
 Some notes on the extended set.
 
-- Is a superset of the core set.
+- Is a superset of the [core set](#core-set-cs).
 - Any characters not in **ES** are illegal in all fin payloads
+  - Illegal characters are still conveyable using escape sequences in
+    [escaped strings](#escaped-strings)
 
 ### Symbols
 
+{% code_example id="symbols" /%}
+
 ### Numbers
+
+{% code_example id="numbers" /%}
 
 ### Strings
 
 #### Escaped Strings
 
+{% code_example id="escaped_strings" /%}
+
 #### Raw Strings
+
+{% code_example id="raw_strings" /%}
 
 ### Comments
 
+{% code_example id="comments" /%}
+
 ### Arrays
+
+{% code_example id="arrays" /%}
 
 ### Maps
 
+{% code_example id="maps" /%}
+
 ### Top Level Value
 
-### Extension
-
-{% code_example id="extensible" /%}
+### Extensions
