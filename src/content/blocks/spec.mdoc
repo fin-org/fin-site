@@ -3,68 +3,104 @@
 - File extension is `.fin`
 - MIME type is `application/fin`
 
-### Text representation
-
-- The fin format is defined in terms of Unicode text (code points).
-- Each code point is distinct and no Unicode normalisation is performed.
-- The only supported character encoding is UTF-8. All fin payloads must be valid UTF-8.
-- The UTF-8 byte order mark (BOM) can be stripped if present and disallowed from the remaining
-  input.
-
-Except for within [comments](#comments) and [strings](#strings) fin notation uses a _small_ subset
-of Unicode code points. Below is the list of valid code points and their interpretation.
-
-- **HT** horizontal tab `U+0009`. Used to indent elements in expanded collections.
-- **LF** line feed `U+000A`. Indicates a new line.
-- **SP** space `U+0020`.
-  - Used in [maps](#maps) to separate keys and values.
-  - Used after commas to space out inline collection elements.
-- **"** double quote `U+0021`. Used to enclose escaped [strings](#strings)
-- **#** hash `U+0023`. Used to initiate [comments](#comments)
-- **(** left parenthesis `U+0028`. Initiate [maps](#maps)
-- **)** right parenthesis `U+0029`. Terminate [maps](#maps)
-- **,** comma `U+002C`. Separates collection elements on the same line.
-- **-** hyphen `U+002C`. Signals negative [numbers](#numbers) and exponents.
-- **.** full stop `U+002E`. Marks decimal point in [numbers](#numbers).
-- **0-9** digits `U+0030-U+0039`. Seen in [symbols](#symbols) and [numbers](#numbers).
-- **:** colon `U+003A`. Used to break up [symbols](#symbols) into fragments.
-- **[** left square bracket `U+005B`. Initiate [arrays](#arrays)
-- **]** right square bracket `U+005D`. Terminate [arrays](#arrays)
-- **\_** underscore `U+005F`. Used to break up words in [symbols](#symbols).
-- **a-z** lowercase alphabet `U+0061-U+007A`.
-  - Used in [symbols](#symbols).
-  - **e** is used to mark a [number](#numbers) exponent
-- **|** vertical line `U+007C`. Used to initiate raw [strings](#strings)
-
-The following code points are strictly invalid but can be [normalised](#normalisation) in certain
-situations
-
-- **CR** carriage return `U+000D`. Can be removed when followed by **LF**.
-- **+** plus sign `U+002B`. Can be removed when used to indicate positive numbers & exponents.
-- **A-Z** uppercase alphabet `U+0041-U+005A`. Can be converted to lowercase.
-
-Encoders will fail if they encounter any code point not listed above. To reiterate, this does not
-apply within strings and comments which can contain a much larger set of code points.
-
-### Normalisation
+### Decoding Modes
 
 The fin text format is designed to be authored by humans and as such invalid syntax is to be
 expected. In cases where the input is strictly invalid, but it can be determined precisely what the
 user was intending then decoders should accept the input, emit a warning, correct it and continue
-decoding. This specification will explicitly point out when normalisation occurs.
+decoding. This specification will explicitly point out when input is **correctable**.
 
 Compliant fin decoders must provide two modes:
 
 - `strict` - fail immediately when _any_ invalid input is detected.
-- `default` - if invalid input is correctable, perform normalisation, otherwise fail immediately.
+- `default` - if invalid input is correctable, fix it, otherwise fail immediately.
 
-### Comments
+### Text representation
+
+- The fin format is defined in terms of Unicode text (code points).
+- Each code point is distinct (e.g. case-sensitive).
+- Fin encoders and decoders do not perform Unicode Normalization.
+- All fin payloads must be encoded using UTF-8.
+- The UTF-8 byte order mark (BOM) will be stripped if present and disallowed for the remaining
+  input.
+
+Unicode provides a huge range of code points to choose from, many of which serve no practical
+purpose in a data interchange format. In fact when humans are involved, some code points could even
+be described as deceptive. On the other hand, Unicode does allow conveying text other than Basic
+Latin in its naturally intended form.
+
+Given the above trade-off fin adopts a cautious approach to including code points in the notation.
+All allowed code points can be broken up into two sets the core set (**CS**) and the extended set
+(**ES**). Both sets are reduced in certain situations depending on the decoding mode (e.g. strict
+core set **SCS**)
+
+#### Core Set (CS)
+
+The core set of code points is used for the majority of fin notation, everything except
+[strings](#strings) and [comments](#comments). It contains
+
+- 3 control codes
+  - horizontal tab **HT**
+  - line feed **LF**
+  - carriage return **CR** (correctable)
+- 10 digits **0-9**
+- 26 lowercase letters **a-z**
+- 26 uppercase letters **A-Z** (correctable)
+- 14 other
+  - space **SP**
+  - **" # ( ) , - . : [ ] \_ |**
+  - **+** (correctable)
+
+```
+control (3) = U+0009, U+000A, U+000D
+digits (10) = U+0030 - U+0039 (incl.)
+lower  (26) = U+0061 - U+007A (incl.)
+upper  (26) = U+0041 - U+005A (incl.)
+other  (14) = U+0021, U+0022, U+0023, U+0028,
+  U+0029, U+002B, U+002C, U+002D, U+002E,
+  U+003A, U+005B, U+005D, U+005F, U+007C
+```
+
+Some notes on the core set.
+
+- Is a subset of the Basic Latin Unicode Block (ASCII).
+- All code points are a single byte in UTF-8 (simplifies decoding).
+- Is small, only **79** total code points.
+- In strict mode (**SCS**) there's **51** total code points. Less than half of ASCII.
+- Restricting input aids general purpose compression algorithms.
+
+#### Extended Set (ES)
+
+The extended set of code points is used for rich text support _within_ [strings](#strings) and
+[comments](#comments). It contains
+
+- 3 control codes **HT**, **LF** and **CR** (correctable). Same as **CS**
+- From the Basic Latin Code Block. All ASCII punctuation, symbols, digits and Latin alphabet code
+  points. `U+0020 - U+007E (incl.)`
+- **TODO** include Unicode code blocks for other languages, emojis etc.
+
+```
+control (3) = U+0009, U+000A, U+000D
+ascii  (95) = U+0020 - U+007E (incl.)
+TODO
+```
+
+Some notes on the extended set.
+
+- Is a superset of the core set.
+- Any characters not in **ES** are illegal in all fin payloads
 
 ### Symbols
 
 ### Numbers
 
 ### Strings
+
+#### Escaped Strings
+
+#### Raw Strings
+
+### Comments
 
 ### Arrays
 
