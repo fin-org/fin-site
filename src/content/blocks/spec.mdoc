@@ -5,15 +5,30 @@
 
 ### Decoding Modes
 
-The fin text format is designed to be authored by humans so invalid syntax is to be expected. In
-cases where the input is strictly invalid, but it can be determined precisely what the user was
-intending then decoders should accept the input, emit a warning, correct it and continue decoding.
-This specification will explicitly point out when input is **correctable**.
+Consider decoders handling input that is produced
 
-Fin decoders must provide two modes:
+1. by a fin encoder (e.g. interchange between programs).
+2. directly via a text editor (e.g. a human).
 
-- `strict` - fail immediately when _any_ invalid input is detected.
-- `default` - if invalid input is correctable, fix it, otherwise fail immediately.
+The expected input in these two situations differs significantly along with how a decoder should
+behave. Fin decoders support both modes and this specification is designed accordingly.
+
+#### Strict Mode
+
+- Expectation is input was produced by a fin encoder and _should_ be valid in most cases.
+- Decoders should fail immediately when _any_ invalid input is detected.
+- Is the **default** mode.
+- Does not check for correct formatting.
+
+#### Editor Mode
+
+- Expectation is input was constructed directly in a text editor and is likely invalid.
+- In cases where the input is invalid, but it can be determined precisely what was intended then
+  decoders should correct it, emit a warning and continue decoding.
+- This specification will explicitly point out when input is **correctable**.
+- This mode may also emit warnings, and correct, valid input.
+  - TODO explain why this is needed. Does it live outside the core spec.
+- Does not check for correct formatting.
 
 ### Text representation
 
