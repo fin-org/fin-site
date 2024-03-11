@@ -25,25 +25,25 @@ Fin decoders must provide two modes:
   input.
 
 Unicode provides a huge range of code points to choose from, many of which serve no practical
-purpose in a data interchange format. In fact when humans are involved, some code points could even
-be described as deceptive. On the other hand, Unicode does allow conveying text other than Basic
-Latin in its naturally intended form.
+purpose in a data interchange format. In fact when humans are involved, some code points could be
+confusing and even deceptive in some cases. On the other hand, Unicode does allow conveying text
+other than Basic Latin in its naturally intended form.
 
 Given the above trade-off fin adopts a cautious approach to including code points in the notation.
 All allowed code points are broken up into two sets, the [core set](#core-set-cs) (**CS**) and the
-[extended set](#extended-set-es) (**ES**). Both sets are reduced in certain situations depending on
-the decoding mode (e.g. strict core set **SCS**)
+[extended set](#extended-set-es) (**ES**). Both sets can be reduced in certain situations depending
+on the decoding mode.
 
 #### Core Set (CS)
 
-The core set of code points is used for the majority of fin notation, everything except
-[strings](#strings) and [comments](#comments). It contains
+The core set of code points is used for the majority of fin notation, everything except the contents
+of [strings](#strings) and [comments](#comments). It contains
 
 - 3 control codes
   - horizontal tab **HT**
   - line feed **LF**
   - carriage return **CR** (correctable)
-- 10 digits **0-9**
+- 10 decimal digits **0-9**
 - 26 lowercase letters **a-z**
 - 26 uppercase letters **A-Z** (correctable)
 - 14 other code points
@@ -66,12 +66,13 @@ Some notes on the core set.
 - Is a subset of the Basic Latin Unicode Block (ASCII).
 - All code points are a single byte in UTF-8 (simplifies decoding).
 - Is small, only **79** total code points.
-- In strict mode (**SCS**) there's **51** total code points. Less than half of ASCII.
+- In strict mode it shrinks to **51** total code points. Less than half of ASCII.
 - Restricting input aids general purpose compression algorithms.
+- Is a subset of the [extended set](#extended-set-es)
 
 #### Extended Set (ES)
 
-The extended set of code points is used for rich text support _within_ [strings](#strings) and
+The extended set of code points is used for rich text support within [strings](#strings) and
 [comments](#comments). It contains
 
 - 3 control codes **HT**, **LF** and **CR**.
@@ -89,8 +90,8 @@ TODO
 Some notes on the extended set.
 
 - Is a superset of the [core set](#core-set-cs).
-- Any characters not in **ES** are illegal in all fin payloads
-  - Illegal characters are still conveyable using [escaped strings](#escaped-strings)
+- Any code points not in **ES** are illegal throughout all fin payloads
+  - They can still be represented using [escaped strings](#escaped-strings)
 
 ### Symbols
 
@@ -116,15 +117,15 @@ Some notes on the extended set.
 - Can represent **any** Unicode code point. Including those outside of [ES](#extended-set-es).
 - To achieve this, escape sequence interpretation is used.
   - `\` initiates an escape sequence.
-    - Can be escaped `\\` to appear within the string.
     - An error occurs if the next code point results in an unknown escape sequence.
+    - An escape sequence (`\\`) must now be used to represent a single backslash.
   - `"` will terminate the string.
-    - Can be escaped `\"` to appear within the string.
+    - Can be escaped using `\"` to appear within the string.
   - The 3 control codes within [ES](#extended-set-es) are **correctable** by replacing them with
-    escape sequences
-    - `\t` - Horizontal tab
-    - `\n` - Line feed
-    - `\r` - Carriage return
+    escape sequences. No line ending or tab normalization occurs.
+    - `\t` - Horizontal tab **HT**
+    - `\n` - Line feed **LF**
+    - `\r` - Carriage return **CR**
   - All code points outside [ES](#extended-set-es) must use the Unicode escape sequence to be
     included in the string.
     - `\u{hex}` where `hex` is the hexadecimal number for the code point
@@ -145,8 +146,10 @@ Some notes on the extended set.
   - A code point other than `|`
 - The raw string contains all code points that follow `|`, up to and including **LF**, for all lines
   that make up the string.
-- Carriage return **CR** are strictly invalid in raw strings and can be **corrected** by removing
-  them entirely.
+- Carriage return **CR** is strictly invalid in raw strings.
+  - When immediately followed by **LF** the user unambiguously intends to go to the next line. The
+    line ending is **corrected** by removing the **CR**.
+  - All other carriage returns are an error.
 - Raw strings are unable to represent code points outside the [extended set](#extended-set-es). So
   they're more limited than [escaped strings](#escaped-strings) in what they can represent.
   - Raw strings can always be converted to escaped strings, but the reverse does not hold.
