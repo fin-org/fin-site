@@ -143,7 +143,9 @@ Some notes on the extended set.
     - `\r` - Carriage return **CR**
   - All code points outside [ES](#extended-set-es) must use the Unicode escape sequence to be
     included in the string.
-    - `\u{hex}` where `hex` is the hexadecimal number for the code point
+    - `\u{hex}` where `hex` is the hexadecimal number for any
+      [Unicode Scalar Value](https://unicode.org/glossary/#unicode_scalar_value)
+      - Which is any code point except high-surrogates and low-surrogates.
     - If required the hex code will be **corrected** to lowercase and leading zeros trimmed (except
       for 0).
 
