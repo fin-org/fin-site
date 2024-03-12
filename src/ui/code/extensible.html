@@ -5,17 +5,20 @@
   <span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span>
     <span class="fin-str">|f6 69 6e 20 54 d6 78 74</span>
     <span class="fin-str">|2a 46 6f 72 6d 61 74 0a</span>
-    <span class="fin-str">|72 2c 64 61 74 61 fe 69</span>
   <span class="fin-pun">]</span>
   <span class="fin-ext">fin:uuid</span><span class="fin-pun">[</span><span class="fin-str">"c83ccbb6-44d0-4d62-8263-b8afec01f3a2"</span><span class="fin-pun">]</span>
+  <span class="fin-ext">fin:_</span><span class="fin-pun">[</span>
+    <span class="fin-str">| extension starting with _ are discarded</span>
+    <span class="fin-str">| as values. They act as comments only</span>
+    <span class="fin-pun">(</span><span class="fin-sym">doc_only</span> <span class="fin-ext">true</span><span class="fin-pun">,</span> <span class="fin-sym">example</span> <span class="fin-str">"data"</span><span class="fin-pun">)</span>
+  <span class="fin-pun">]</span>
 
   <span class="fin-com"># boolean literals are valid symbols</span>
   <span class="fin-com"># they're handled as builtin extensions</span>
   <span class="fin-ext">true</span><span class="fin-pun">, </span><span class="fin-ext">false</span>
 
   <span class="fin-com"># custom extensions (start with ext:)</span>
-  <span class="fin-ext">ext:null</span><span class="fin-pun">, </span><span class="fin-ext">ext:nan</span>
-  <span class="fin-ext">ext:int:hex_10fe</span>
+  <span class="fin-ext">ext:null</span><span class="fin-pun">, </span><span class="fin-ext">ext:nan</span><span class="fin-pun">, </span><span class="fin-ext">ext:int:hex_10fe</span>
   <span class="fin-ext">ext:loc</span><span class="fin-pun">(</span><span class="fin-sym">x</span> <span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-sym">y</span> <span class="fin-num">2</span><span class="fin-pun">)</span> 
   <span class="fin-ext">ext:quantity</span><span class="fin-pun">[<span class="fin-ext">ext:ratio</span><span class="fin-pun">[</span><span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-num">3</span><span class="fin-pun">]</span><span class="fin-pun">, </span></span><span class="fin-sym">kg</span><span class="fin-pun">]</span>
 

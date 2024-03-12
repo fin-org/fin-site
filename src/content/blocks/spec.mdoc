@@ -22,12 +22,11 @@ behave. Fin decoders support both modes and this specification is designed accor
 
 #### Editor Mode
 
-- Expectation is input was constructed directly in a text editor and is likely invalid.
+- Expectation is input was constructed directly in a text editor and is often invalid.
 - In cases where the input is invalid, but it can be determined precisely what was intended then
   decoders should correct it, emit a warning and continue decoding.
 - This specification will explicitly point out when input is **correctable**.
 - This mode may also emit warnings, and correct, valid input.
-  - TODO explain why this is needed. Does it live outside the core spec.
 - Does not check for correct formatting.
 
 ### Text representation
@@ -35,19 +34,21 @@ behave. Fin decoders support both modes and this specification is designed accor
 - The fin format is defined in terms of Unicode text (code points).
 - Each code point is distinct (e.g. case-sensitive).
 - Fin encoders and decoders do not perform Unicode Normalization.
-- All fin payloads must be encoded as UTF-8.
-- The UTF-8 byte order mark (BOM) will be stripped if present and disallowed for the remaining
-  input.
+- All fin payloads must be encoded as UTF-8. Invalid UTF-8 is invalid Fin.
+- Decoders will ignore a UTF-8 encoded byte order mark `U+FEFF` at the start of input.
+- Encoders must not emit a byte order mark at the start of output.
 
 Unicode provides a huge range of code points to choose from, many of which serve no practical
 purpose in a data interchange format. In fact when humans are involved, some code points could be
-confusing and even deceptive in some cases. On the other hand, Unicode does allow conveying text
-other than Basic Latin in its naturally intended form.
+confusing and even [dangerous](https://trojansource.codes/).
 
-Given the above trade-off fin adopts a cautious approach to including code points in the notation.
-All allowed code points are broken up into two sets, the [core set](#core-set-cs) (**CS**) and the
-[extended set](#extended-set-es) (**ES**). Both sets can be reduced in certain situations depending
-on the decoding mode.
+The majority of fin notation uses a very small [set](#core-set-cs) of _safe_ code points, so safety
+concerns are somewhat localised. However, Unicode does allow conveying text other than Basic Latin
+in its naturally intended form which is desirable for strings and comments.
+
+It is tempting to make specific Unicode ranges strictly invalid in this specification. However, that
+approach has significant downsides. Instead, fin advocates for warnings + escape sequences in
+[editor mode](#editor-mode) and encoding APIs that default to escaping suspect code points.
 
 #### Core Set (CS)
 
@@ -83,30 +84,6 @@ Some notes on the core set.
 - Is small, only **79** total code points.
 - In strict mode it shrinks to **51** total code points. Less than half of ASCII.
 - Restricting input aids general purpose compression algorithms.
-- Is a subset of the [extended set](#extended-set-es)
-
-#### Extended Set (ES)
-
-The extended set of code points is used for rich text support within [strings](#strings) and
-[comments](#comments). It contains
-
-- 3 control codes **HT**, **LF** and **CR**.
-- All ASCII punctuation, symbols, digits and Latin alphabet code points. `U+0020 - U+007E (incl.)`
-- **TODO**
-  - include Unicode code blocks for other languages, emojis etc.
-  - The expectation is that the extended set will grow throughout the unstable development period.
-
-```
-control (3) = U+0009, U+000A, U+000D
-ascii  (95) = U+0020 - U+007E (incl.)
-TODO
-```
-
-Some notes on the extended set.
-
-- Is a superset of the [core set](#core-set-cs).
-- Any code points not in **ES** are illegal throughout all fin payloads
-  - They can still be represented using [escaped strings](#escaped-strings)
 
 ### Symbols
 
@@ -123,7 +100,6 @@ Some notes on the extended set.
   - [Extension](#extension) should be used for alternate interpretations and semantics (e.g. binary
     to text encoding).
 - Two syntax forms are provided [escaped](#escaped-strings), and [raw](#raw-strings).
-- The notation for both forms uses the [extended set](#extended-set-es) of code points.
 
 #### Escaped Strings
 
