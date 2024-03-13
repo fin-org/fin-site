@@ -22,6 +22,7 @@
 - A digit must not follow a colon.
 - Consecutive underscores are not allowed.
 - Consecutive colons are not allowed.
+- For formatting are classified as **inline**.
 
 ## Numbers
 
@@ -33,7 +34,6 @@
   - **.** full stop `U+002E`
   - **e** lowercase letter e `U+0065`
 - Syntax notation
-
   ```
   dig  = "0" ... "9" .
   dig1 = "1" ... "9" .
@@ -42,6 +42,7 @@
   exp  = "e" [ "-" ] int .
   number = [ "-" ] int [ frac ] [ exp ] .
   ```
+- For formatting are classified as **inline**.
 
 ## Strings
 
@@ -58,6 +59,7 @@
     - `\r` carriage return.
     - `\t` horizontal tab.
     - `\u{hex}` Unicode escape. Where `hex` is the hexadecimal number for a Unicode code point.
+- For formatting are classified as **inline**.
 
 {% code_example id="escaped_strings" /%}
 
@@ -69,7 +71,16 @@
     transitions the state to `ignore`
 - `ignore` state
   - All space and horizontal tabs are ignored
-  - `|` transitions to the `accept` state
+  - `|` transitions the state back to `accept`.
   - Any other code point terminates the string.
+- For formatting are classified as **expanded**.
 
 {% code_example id="raw_strings" /%}
+
+### Comments
+
+- Follow the exact same rules as raw strings except they are initiated with `#` and are not treated
+  as values.
+- For formatting are classified as **non-value**, **expanded**
+
+{% code_example id="comments" /%}
