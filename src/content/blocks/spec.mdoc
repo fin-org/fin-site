@@ -1,3 +1,5 @@
+# Core Fin Specification
+
 - File extension is `.fin`
 - MIME type is `application/fin`
 - The fin format is defined in terms of Unicode text (code points).
@@ -6,15 +8,37 @@
 - Decoders will ignore a UTF-8 encoded byte order mark `U+FEFF` at the start of input.
 - Encoders must not emit a byte order mark at the start of output.
 
-### Symbols
+## Symbols
+
+{% code_example id="symbols" /%}
 
 - Symbols can contain the following code points
   - **:** colon `U+003A`
   - **\_** underscore `U+005F`
   - **a-z** lowercase letters `U+0061 - U+007A`
+  - **0-9** decimal digits `U+0030 - U+0039`
 - Must not start with a digit.
 - Must not end with a colon.
+- A digit must not follow a colon.
 - Consecutive underscores are not allowed.
 - Consecutive colons are not allowed.
 
-{% code_example id="symbols" /%}
+## Numbers
+
+{% code_example id="numbers" /%}
+
+- Numbers can contain the following code points
+  - **0-9** decimal digits `U+0030 - U+0039`
+  - **-** hyphen `U+002D`
+  - **.** full stop `U+002E`
+  - **e** lowercase letter e `U+0065`
+- Syntax notation
+
+  ```
+  dig  = "0" ... "9" .
+  dig1 = "1" ... "9" .
+  int  = "0" | dig1 {dig} .
+  frac = "." dig {dig} .
+  exp  = "e" [ "-" ] int .
+  number = [ "-" ] int [ frac ] [ exp ] .
+  ```
