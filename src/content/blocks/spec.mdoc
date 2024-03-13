@@ -62,3 +62,14 @@
 {% code_example id="escaped_strings" /%}
 
 ### Raw Strings
+
+- `accept` state
+  - Initiated by a vertical bar `|`
+  - The string includes all code points up to and including the next line feed `\n` which
+    transitions the state to `ignore`
+- `ignore` state
+  - All space and horizontal tabs are ignored
+  - `|` transitions to the `accept` state
+  - Any other code point terminates the string.
+
+{% code_example id="raw_strings" /%}
