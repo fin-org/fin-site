@@ -42,3 +42,23 @@
   exp  = "e" [ "-" ] int .
   number = [ "-" ] int [ frac ] [ exp ] .
   ```
+
+## Strings
+
+### Escaped Strings
+
+- Any sequence of Unicode code points within double quotes `"`.
+- Supports escape sequence interpretation.
+  - `\` initiates an escape sequence.
+  - An error occurs if the next code point results in an unknown escape sequence.
+  - The supported escape sequences are
+    - `\\` backslash.
+    - `\"` double quotation. Prevents early termination of the string.
+    - `\n` line feed.
+    - `\r` carriage return.
+    - `\t` horizontal tab.
+    - `\u{hex}` Unicode escape. Where `hex` is the hexadecimal number for a Unicode code point.
+
+{% code_example id="escaped_strings" /%}
+
+### Raw Strings
