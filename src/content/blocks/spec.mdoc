@@ -22,7 +22,7 @@
 - A digit must not follow a colon.
 - Consecutive underscores are not allowed.
 - Consecutive colons are not allowed.
-- For formatting are classified as **inline**.
+- Formatting classification **inline**.
 
 ## Numbers
 
@@ -42,15 +42,15 @@
   exp  = "e" [ "-" ] int .
   number = [ "-" ] int [ frac ] [ exp ] .
   ```
-- For formatting are classified as **inline**.
+- Formatting classification **inline**.
 
 ## Strings
 
 ### Escaped Strings
 
-- Any sequence of Unicode code points within double quotes `"`.
+- Any sequence of Unicode code points within double quotes **"** `U+0022`.
 - Supports escape sequence interpretation.
-  - `\` initiates an escape sequence.
+  - `\` backslash `U+005C` initiates an escape sequence.
   - An error occurs if the next code point results in an unknown escape sequence.
   - The supported escape sequences are
     - `\\` backslash.
@@ -59,28 +59,57 @@
     - `\r` carriage return.
     - `\t` horizontal tab.
     - `\u{hex}` Unicode escape. Where `hex` is the hexadecimal number for a Unicode code point.
-- For formatting are classified as **inline**.
+- Formatting classification **inline**.
 
 {% code_example id="escaped_strings" /%}
 
 ### Raw Strings
 
 - `accept` state
-  - Initiated by a vertical bar `|`
-  - The string includes all code points up to and including the next line feed `\n` which
+  - Initiated by a vertical bar **|** `U+007C`
+  - The string includes all code points up to and including the next line feed `U+000A` which
     transitions the state to `ignore`
 - `ignore` state
-  - All space and horizontal tabs are ignored
+  - All space `U+0020` and horizontal tabs `U+0009` are ignored
   - `|` transitions the state back to `accept`.
   - Any other code point terminates the string.
-- For formatting are classified as **expanded**.
+- Formatting classification **expanded**.
 
 {% code_example id="raw_strings" /%}
 
 ### Comments
 
-- Follow the exact same rules as raw strings except they are initiated with `#` and are not treated
-  as values.
-- For formatting are classified as **non-value**, **expanded**
+- Follow the exact same rules as raw strings except they are initiated with **#** `U+0023` and are
+  not treated as values.
+- Formatting classification **non-value**, **expanded**
 
 {% code_example id="comments" /%}
+
+### Arrays
+
+- Initiated by a left square bracket **[** `U+005B`
+- Contains any number (incl. zero) of children elements.
+- Elements can be any type of notation including collections and non-values like comments.
+- Terminated by a right square bracket **]** `U+005D`
+- Are classified as
+  - **inline** if _all_ elements are **inline**
+  - **expanded** if _any_ elements are **expanded**
+- TODO specify formatting
+
+### Maps
+
+- TODO
+
+### Top Level Value
+
+- TODO
+
+### Extensions
+
+- builtins
+  - `fin:`
+    - `fin:_` ending in `_` marks **non-value**
+  - `true` and `false`
+- custom
+  - `ext:`
+    - `ext:_` ending in `_` marks **non-value**
