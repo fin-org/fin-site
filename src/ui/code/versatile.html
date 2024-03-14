@@ -1,27 +1,27 @@
 <pre><code><span class="fin-com"># frontmatter</span>
-<span class="fin-sym">title</span> <span class="fin-str">"Extensibility is not enough"</span>
-<span class="fin-sym">tags</span> <span class="fin-pun">[</span><span class="fin-sym">fin</span><span class="fin-pun">, </span><span class="fin-sym">data</span><span class="fin-pun">]</span>
-<span class="fin-sym">draft</span> <span class="fin-ext">false</span>
-<span class="fin-sym">pub_date</span> <span class="fin-ext">fin:ts</span><span class="fin-pun">[</span><span class="fin-str">"2024-02-26T03:01:13.644Z"</span><span class="fin-pun">]</span>
+<span class="fin-sym">title</span><span class="fin-pun"> = </span><span class="fin-str">"Extensibility is not enough"</span>
+<span class="fin-sym">tags</span><span class="fin-pun"> = </span><span class="fin-pun">[</span><span class="fin-sym">fin</span><span class="fin-pun">, </span><span class="fin-sym">data</span><span class="fin-pun">]</span>
+<span class="fin-sym">draft</span><span class="fin-pun"> = </span><span class="fin-ext">false</span>
+<span class="fin-sym">pub_date</span><span class="fin-pun"> = </span><span class="fin-ext">fin:ts</span><span class="fin-pun">[</span><span class="fin-str">"2024-02-26T03:01:13.644Z"</span><span class="fin-pun">]</span>
 
 <span class="fin-com"># represent html</span>
-<span class="fin-sym">html_fragment</span> <span class="fin-sym">div</span><span class="fin-pun">[</span>
-  <span class="fin-pun">(</span><span class="fin-sym">class</span> <span class="fin-str">"prose"</span><span class="fin-pun">,</span> <span class="fin-sym">id</span> <span class="fin-str">"hero"</span><span class="fin-pun">)</span>
+<span class="fin-sym">html_fragment</span><span class="fin-pun"> = </span><span class="fin-sym">div</span><span class="fin-pun">[</span>
+  <span class="fin-pun">(</span><span class="fin-sym">class</span><span class="fin-pun"> = </span><span class="fin-str">"prose"</span><span class="fin-pun">,</span> <span class="fin-sym">id</span><span class="fin-pun"> = </span><span class="fin-str">"hero"</span><span class="fin-pun">)</span>
   <span class="fin-sym">h1</span><span class="fin-pun">[</span><span class="fin-str">"Fin Data Format"</span><span class="fin-pun">]</span>
   <span class="fin-sym">p</span><span class="fin-pun">[</span><span class="fin-str">"A notation for data interchange"</span><span class="fin-pun">]</span><span class="fin-pun">,</span> <span class="fin-sym">hr</span>
   <span class="fin-sym">img</span><span class="fin-pun">(</span>
     <span class="fin-com"># example with no children</span>
-    <span class="fin-sym">src</span> <span class="fin-str">"fin.webp"</span><span class="fin-pun">,</span> <span class="fin-sym">alt</span> <span class="fin-str">"fin data notation"</span>
-    <span class="fin-sym">width</span> <span class="fin-num">512</span><span class="fin-pun">,</span> <span class="fin-sym">height</span> <span class="fin-num">512</span>
+    <span class="fin-sym">src</span><span class="fin-pun"> = </span><span class="fin-str">"fin.webp"</span><span class="fin-pun">,</span> <span class="fin-sym">alt</span><span class="fin-pun"> = </span><span class="fin-str">"fin data notation"</span>
+    <span class="fin-sym">width</span><span class="fin-pun"> = </span><span class="fin-num">512</span><span class="fin-pun">,</span> <span class="fin-sym">height</span><span class="fin-pun"> = </span><span class="fin-num">512</span>
   <span class="fin-pun">)</span>
 <span class="fin-pun">]</span>
 
 <span class="fin-com"># describe a program</span>
-<span class="fin-sym">crypto</span> <span class="fin-sym">:namespace</span><span class="fin-pun">(</span><span class="fin-sym">url</span> <span class="fin-str">"https://blah/crypto"</span><span class="fin-pun">)</span>
-<span class="fin-sym">in</span> <span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span><span class="fin-str">""</span><span class="fin-pun">]</span>
-<span class="fin-sym">out</span> <span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span><span class="fin-str">"e3b0c44298fc1c149afbf4..."</span><span class="fin-pun">]</span>
-<span class="fin-sym">main</span> <span class="fin-sym">:function</span><span class="fin-pun">(</span>
-  <span class="fin-sym">body</span> <span class="fin-pun">[</span>
+<span class="fin-sym">crypto</span><span class="fin-pun"> = </span><span class="fin-sym">:namespace</span><span class="fin-pun">(</span><span class="fin-sym">url</span><span class="fin-pun"> = </span><span class="fin-str">"https://blah/crypto"</span><span class="fin-pun">)</span>
+<span class="fin-sym">in</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span><span class="fin-str">""</span><span class="fin-pun">]</span>
+<span class="fin-sym">out</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span><span class="fin-str">"e3b0c44298fc1c149afbf4..."</span><span class="fin-pun">]</span>
+<span class="fin-sym">main</span><span class="fin-pun"> = </span><span class="fin-sym">:function</span><span class="fin-pun">(</span>
+  <span class="fin-sym">body</span><span class="fin-pun"> = </span><span class="fin-pun">[</span>
     <span class="fin-com"># sha256 test vector</span>
     <span class="fin-sym">:assert_eq</span><span class="fin-pun">[</span><span class="fin-sym">crypto:sha256</span><span class="fin-pun">[</span><span class="fin-sym">in</span><span class="fin-pun">]</span><span class="fin-pun">, </span><span class="fin-sym">out</span><span class="fin-pun">]</span>
   <span class="fin-pun">]</span>

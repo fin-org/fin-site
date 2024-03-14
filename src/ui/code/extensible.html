@@ -1,4 +1,4 @@
-<pre><code><span class="fin-sym">data</span> <span class="fin-pun">[</span>
+<pre><code><span class="fin-sym">data</span><span class="fin-pun"> = </span><span class="fin-pun">[</span>
 
   <span class="fin-com"># builtin extensions (start with fin:)</span>
   <span class="fin-ext">fin:ts</span><span class="fin-pun">[</span><span class="fin-str">"2024-02-26T03:01:13.644Z"</span><span class="fin-pun">]</span>
@@ -10,7 +10,7 @@
   <span class="fin-ext">fin:_</span><span class="fin-pun">[</span>
     <span class="fin-str">| extension ending with _ are discarded</span>
     <span class="fin-str">| as values. They're treated as comments</span>
-    <span class="fin-pun">(</span><span class="fin-sym">doc_only</span> <span class="fin-ext">true</span><span class="fin-pun">,</span> <span class="fin-sym">example</span> <span class="fin-str">"data"</span><span class="fin-pun">)</span>
+    <span class="fin-pun">(</span><span class="fin-sym">doc_only</span><span class="fin-pun"> = </span><span class="fin-ext">true</span><span class="fin-pun">,</span> <span class="fin-sym">example</span><span class="fin-pun"> = </span><span class="fin-str">"data"</span><span class="fin-pun">)</span>
   <span class="fin-pun">]</span>
 
   <span class="fin-com"># boolean literals are valid symbols</span>
@@ -19,7 +19,7 @@
 
   <span class="fin-com"># custom extensions (start with ext:)</span>
   <span class="fin-ext">ext:null</span><span class="fin-pun">, </span><span class="fin-ext">ext:nan</span><span class="fin-pun">, </span><span class="fin-ext">ext:int:hex_10fe</span>
-  <span class="fin-ext">ext:loc</span><span class="fin-pun">(</span><span class="fin-sym">x</span> <span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-sym">y</span> <span class="fin-num">2</span><span class="fin-pun">)</span> 
+  <span class="fin-ext">ext:loc</span><span class="fin-pun">(</span><span class="fin-sym">x</span><span class="fin-pun"> = </span><span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-sym">y</span><span class="fin-pun"> = </span><span class="fin-num">2</span><span class="fin-pun">)</span> 
   <span class="fin-ext">ext:quantity</span><span class="fin-pun">[<span class="fin-ext">ext:ratio</span><span class="fin-pun">[</span><span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-num">3</span><span class="fin-pun">]</span><span class="fin-pun">, </span></span><span class="fin-sym">kg</span><span class="fin-pun">]</span>
 
 <span class="fin-pun">]</span>
