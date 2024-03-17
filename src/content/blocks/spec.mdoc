@@ -4,7 +4,9 @@
 - MIME type is `application/fin`
 - The fin format is defined in terms of Unicode text (code points).
 - Each code point is distinct (e.g. case-sensitive).
-- All fin payloads must be encoded as UTF-8. Invalid UTF-8 is invalid Fin.
+- All fin payloads must be
+  - Encoded as UTF-8. Invalid UTF-8 is invalid Fin.
+  - Valid Unicode text (surrogates should be avoided but if present must appear in pairs)
 - Decoders will ignore a UTF-8 encoded byte order mark `U+FEFF` at the start of input.
 - Encoders must not emit a byte order mark at the start of output.
 
@@ -94,15 +96,29 @@
 - Are classified as
   - **inline** if _all_ elements are **inline**
   - **expanded** if _any_ elements are **expanded**
-- TODO specify formatting
+
+{% code_example id="arrays" /%}
 
 ### Maps
 
-- TODO
+- Initiated by a left parenthesis **(** `U+0028`
+- Terminated by a right parenthesis **)** `U+0029`
+- Child elements can either be
+  - non-values (e.g. [comments](#comments) or discarded [extensions](#extensions))
+  - map entries (also called key-val pairs)
+    - **=** `U+003D` is used to separate a pair of values (called key and val)
+- Are classified as
+  - **inline** if _all_ elements are **inline**
+  - **expanded** if _any_ elements are **expanded**
+
+{% code_example id="maps" /%}
 
 ### Top Level Value
 
-- TODO
+- The top level value is an _implicit_ [map](#map)
+- Implicit means
+  - the surrounding parenthesis are not rendered
+  - elements are not indented (depth 0)
 
 ### Extensions
 
