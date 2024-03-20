@@ -1,12 +1,13 @@
 # Core Fin Specification
 
-- File extension is `.fin`
-- MIME type is `application/fin`
+- **Unstable**, expect changes.
+- File extension is `.fin`.
+- MIME type is `application/fin`.
 - The fin format is defined in terms of Unicode text (code points).
 - Each code point is distinct (e.g. case-sensitive).
 - All fin payloads must be
   - Encoded as UTF-8. Invalid UTF-8 is invalid Fin.
-  - Valid Unicode text (surrogates should be avoided but if present must appear in pairs)
+  - Valid Unicode text (surrogates should be avoided but if present must appear in pairs).
 - Decoders will ignore a UTF-8 encoded byte order mark `U+FEFF` at the start of input.
 - Encoders must not emit a byte order mark at the start of output.
 
@@ -24,7 +25,8 @@
 - A digit must not follow a colon.
 - Consecutive underscores are not allowed.
 - Consecutive colons are not allowed.
-- Formatting classification **inline**.
+- Symbols are **values**.
+- Symbols are rendered **inline**.
 
 ## Numbers
 
@@ -44,13 +46,16 @@
   exp  = "e" [ "-" ] int .
   number = [ "-" ] int [ frac ] [ exp ] .
   ```
-- Formatting classification **inline**.
+- Numbers are **values**.
+- Numbers are rendered **inline**.
+- Does not represent `NaN` or `+/- infinity`. Use [extensions](#extensions).
 
 ## Strings
 
 ### Escaped Strings
 
-- Any sequence of Unicode code points within double quotes **"** `U+0022`.
+- A sequence of Unicode code points within double quotes **"** `U+0022` that represents valid
+  Unicode text.
 - Supports escape sequence interpretation.
   - `\` backslash `U+005C` initiates an escape sequence.
   - An error occurs if the next code point results in an unknown escape sequence.
@@ -61,21 +66,24 @@
     - `\r` carriage return.
     - `\t` horizontal tab.
     - `\u{hex}` Unicode escape. Where `hex` is the hexadecimal number for a Unicode code point.
-- Formatting classification **inline**.
+- Escaped strings are **values**.
+- Escaped strings are rendered **inline**.
 
 {% code_example id="escaped_strings" /%}
 
 ### Raw Strings
 
-- `accept` state
-  - Initiated by a vertical bar **|** `U+007C`
-  - The string includes all code points up to and including the next line feed `U+000A` which
-    transitions the state to `ignore`
-- `ignore` state
-  - All space `U+0020` and horizontal tabs `U+0009` are ignored
-  - `|` transitions the state back to `accept`.
-  - Any other code point terminates the string.
-- Formatting classification **expanded**.
+- A sequence of Unicode code points collected by alternating between the following states
+  - `accept`
+    - Initiated by a vertical bar **|** `U+007C`.
+    - Accept all code points up to and including the next line feed `U+000A` which transitions the
+      state to `ignore`.
+  - `ignore`
+    - Ignore all space `U+0020` and horizontal tabs `U+0009`.
+    - `|` transitions the state back to `accept`.
+    - Any other code point terminates the string.
+- Raw strings are **values**.
+- Raw strings are **expanded** and rendered as a **block**.
 
 {% code_example id="raw_strings" /%}
 
@@ -83,33 +91,49 @@
 
 - Follow the exact same rules as raw strings except they are initiated with **#** `U+0023` and are
   not treated as values.
-- Formatting classification **non-value**, **expanded**
+- Comments are **non-values**.
+- Comments are **expanded** and rendered as a **block**.
 
 {% code_example id="comments" /%}
 
 ### Arrays
 
-- Initiated by a left square bracket **[** `U+005B`
-- Contains any number (incl. zero) of children elements.
-- Elements can be any type of notation including collections and non-values like comments.
-- Terminated by a right square bracket **]** `U+005D`
-- Are classified as
+- A sequence of children elements surrounded by square brackets **[** `U+005B` and **]** `U+005D`
+- Can be empty - zero length
+- Element order is significant and must be maintained.
+- Elements can be almost any type of notation
+  - All values including collections (recursive).
+  - All non-values (e.g. [comments](#comments) or discarded [extensions](#extensions)).
+  - [Map entries](#map-entries) are _not_ allowed.
+- Can be _tagged_ with an optional [symbol](#symbols) that immediately precedes the opening bracket
+- Are rendered in two forms
   - **inline** if _all_ elements are **inline**
-  - **expanded** if _any_ elements are **expanded**
+  - **expanded** if _any_ element has **expanded**
 
 {% code_example id="arrays" /%}
 
 ### Maps
 
-- Initiated by a left parenthesis **(** `U+0028`
-- Terminated by a right parenthesis **)** `U+0029`
-- Child elements can either be
+- A sequence of children elements surrounded by parenthesis **(** `U+0028` and **)** `U+0029`
+- Unlike arrays child elements are restricted to
   - non-values (e.g. [comments](#comments) or discarded [extensions](#extensions))
-  - map entries (also called key-val pairs)
-    - **=** `U+003D` is used to separate a pair of values (called key and val)
-- Are classified as
-  - **inline** if _all_ elements are **inline**
-  - **expanded** if _any_ elements are **expanded**
+  - [map entries](#map-entries)
+- Other than that they have the same rules as arrays
+  - Can be empty - zero length
+  - Element order is significant and must be maintained.
+  - Can be _tagged_ with an optional [symbol](#symbols) that immediately precedes the opening
+    bracket
+  - Are rendered in two forms
+    - **inline** if _all_ elements are **inline**
+    - **expanded** if _any_ element has **expanded**
+
+#### Map Entries
+
+- A map entry represents an association of two **values**
+- Separated by **=** `U+003D`
+- The first value is the key.
+- The Second value is confusingly called the value or val.
+- A map entry is a key/val pair.
 
 {% code_example id="maps" /%}
 
@@ -120,12 +144,17 @@
   - the surrounding parenthesis are not rendered
   - elements are not indented (depth 0)
 
+{% code_example id="top_level" /%}
+
 ### Extensions
 
-- builtins
-  - `fin:`
-    - `fin:_` ending in `_` marks **non-value**
-  - `true` and `false`
-- custom
-  - `ext:`
-    - `ext:_` ending in `_` marks **non-value**
+- Includes all symbols and tagged collections where the symbol
+  - starts with `fin:` (builtin extensions)
+  - is `true` or `false` (considered builtin)
+  - starts with `ext:` (custom extension)
+- Extensions are **values** unless they are discarded.
+- Discarded extensions are those with symbols ending in `_` they are **non-values**.
+- Extensions are **expanded** if the tagged collection is also **expanded**
+- Otherwise extensions are rendered **inline**
+
+{% code_example id="extensions" /%}
