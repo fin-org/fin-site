@@ -1,4 +1,32 @@
-<pre><code><span class="fin-sym">example</span><span class="fin-pun"> = </span><span class="fin-pun">[</span>
-  <span class="fin-com"># TODO</span>
-<span class="fin-pun">]</span>
+<pre><code><span class="fin-sym">example_map_entries</span><span class="fin-pun"> = </span><span class="fin-pun">(</span>
+
+  <span class="fin-com"># most keys in the wild are symbols, strings or numbers</span>
+  <span class="fin-com"># however, fin supports all value types as keys</span>
+
+  <span class="fin-com"># inline-inline</span>
+  <span class="fin-sym">a</span><span class="fin-pun"> = </span><span class="fin-num">98</span><span class="fin-pun">, </span><span class="fin-sym">nested</span><span class="fin-pun"> = </span><span class="fin-pun">(</span><span class="fin-sym">a</span><span class="fin-pun"> = </span><span class="fin-num">98</span><span class="fin-pun">)</span> 
+
+  <span class="fin-com"># inline-block</span>
+  <span class="fin-sym">b</span><span class="fin-pun"> =</span>
+  <span class="fin-str">|raw</span>
+
+  <span class="fin-com"># block-inline</span>
+  <span class="fin-str">|c</span>
+  <span class="fin-pun">= </span><span class="fin-num">98</span>
+
+  <span class="fin-com"># block-block</span>
+  <span class="fin-str">|d</span>
+  <span class="fin-pun">= </span>
+  <span class="fin-str">|e</span>
+
+  <span class="fin-pun">(</span>
+    <span class="fin-com"># key is an expanded map</span>
+    <span class="fin-sym">a</span><span class="fin-pun"> = </span><span class="fin-num">98</span>
+  <span class="fin-pun">) = [</span> 
+    <span class="fin-com"># val is an expanded array</span>
+  <span class="fin-pun">]</span><span class="fin-pun">, </span><span class="fin-sym">f</span><span class="fin-pun"> =</span>
+  <span class="fin-str">| line continuation (comma) works</span>
+  <span class="fin-str">| after expanded vals & before expanded keys</span>
+
+<span class="fin-pun">)</span>
 </code></pre>

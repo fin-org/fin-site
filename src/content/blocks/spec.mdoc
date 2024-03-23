@@ -5,11 +5,19 @@
 - MIME type is `application/fin`.
 - The fin format is defined in terms of Unicode text (code points).
 - Each code point is distinct (e.g. case-sensitive).
-- All fin payloads must be
-  - Encoded as UTF-8. Invalid UTF-8 is invalid Fin.
-  - Valid Unicode text (surrogates should be avoided but if present must appear in pairs).
+- All fin payloads must be valid Unicode text encoded as UTF-8.
 - Decoders will ignore a UTF-8 encoded byte order mark `U+FEFF` at the start of input.
 - Encoders must not emit a byte order mark at the start of output.
+- Some terminology used in this spec.
+  - **Inline** means notation that is free of line feeds. Specifically the `U+000A` code point.
+    - It _does not_ mean the notation is guaranteed to be displayed to a human on the same line
+      that's something different.
+  - **Expanded** is the opposite. Expanded elements contain at least one line feed.
+  - **Container** elements can include (nest) other elements (children).
+  - **Block** elements are expanded, non-container elements that are rendered (and indented) as a
+    block
+  - **Non-value** means an element is not treated like a **value** when interpreting the notation.
+    Instead, non-values act like comments, only for documentation purposes.
 
 ## Symbols
 
@@ -25,8 +33,7 @@
 - A digit must not follow a colon.
 - Consecutive underscores are not allowed.
 - Consecutive colons are not allowed.
-- Symbols are **values**.
-- Symbols are rendered **inline**.
+- Symbols are **inline values**.
 
 ## Numbers
 
@@ -46,28 +53,28 @@
   exp  = "e" [ "-" ] int .
   number = [ "-" ] int [ frac ] [ exp ] .
   ```
-- Numbers are **values**.
-- Numbers are rendered **inline**.
 - Does not represent `NaN` or `+/- infinity`. Use [extensions](#extensions).
+- Numbers are **inline values**.
 
 ## Strings
 
 ### Escaped Strings
 
-- A sequence of Unicode code points within double quotes **"** `U+0022` that represents valid
-  Unicode text.
+- A sequence of Unicode code points within double quotes `U+0022` that represents valid Unicode
+  text.
+- Zero length sequences (empty strings) are allowed.
 - Supports escape sequence interpretation.
   - `\` backslash `U+005C` initiates an escape sequence.
   - An error occurs if the next code point results in an unknown escape sequence.
   - The supported escape sequences are
-    - `\\` backslash.
-    - `\"` double quotation. Prevents early termination of the string.
-    - `\n` line feed.
-    - `\r` carriage return.
-    - `\t` horizontal tab.
+    - `\\` backslash `U+005C`.
+    - `\"` double quotation `U+0022`. Prevents early termination of the string.
+    - `\n` line feed `U+000A`.
+    - `\r` carriage return `U+OOOD`.
+    - `\t` horizontal tab `U+0009`.
     - `\u{hex}` Unicode escape. Where `hex` is the hexadecimal number for a Unicode code point.
-- Escaped strings are **values**.
-- Escaped strings are rendered **inline**.
+- All code points values less than 32 (C0 controls) **must** be escaped.
+- Escaped strings are **inline values**.
 
 {% code_example id="escaped_strings" /%}
 
@@ -82,8 +89,7 @@
     - Ignore all space `U+0020` and horizontal tabs `U+0009`.
     - `|` transitions the state back to `accept`.
     - Any other code point terminates the string.
-- Raw strings are **values**.
-- Raw strings are **expanded** and rendered as a **block**.
+- Raw strings are **expanded block values**.
 
 {% code_example id="raw_strings" /%}
 
@@ -91,22 +97,21 @@
 
 - Follow the exact same rules as raw strings except they are initiated with **#** `U+0023` and are
   not treated as values.
-- Comments are **non-values**.
-- Comments are **expanded** and rendered as a **block**.
+- Comments are **expanded block non-values**.
 
 {% code_example id="comments" /%}
 
 ### Arrays
 
 - A sequence of children elements surrounded by square brackets **[** `U+005B` and **]** `U+005D`
-- Can be empty - zero length
+- Can be empty (zero length)
 - Element order is significant and must be maintained.
 - Elements can be almost any type of notation
-  - All values including collections (recursive).
+  - All values including other collections (nesting).
   - All non-values (e.g. [comments](#comments) or discarded [extensions](#extensions)).
   - [Map entries](#map-entries) are _not_ allowed.
 - Can be _tagged_ with an optional [symbol](#symbols) that immediately precedes the opening bracket
-- Are rendered in two forms
+- Arrays are **values** and can be rendered in two forms
   - **inline** if _all_ elements are **inline**
   - **expanded** if _any_ element has **expanded**
 
@@ -119,20 +124,22 @@
   - non-values (e.g. [comments](#comments) or discarded [extensions](#extensions))
   - [map entries](#map-entries)
 - Other than that they have the same rules as arrays
-  - Can be empty - zero length
+  - Can be empty (zero length)
   - Element order is significant and must be maintained.
   - Can be _tagged_ with an optional [symbol](#symbols) that immediately precedes the opening
     bracket
   - Are rendered in two forms
     - **inline** if _all_ elements are **inline**
-    - **expanded** if _any_ element has **expanded**
+- Maps are **values** and can be rendered in two forms
+  - **inline** if _all_ elements are **inline**
+  - **expanded** if _any_ element has **expanded**
 
 #### Map Entries
 
 - A map entry represents an association of two **values**
 - Separated by **=** `U+003D`
 - The first value is the key.
-- The Second value is confusingly called the value or val.
+- The second value is confusingly called the value or val.
 - A map entry is a key/val pair.
 
 {% code_example id="maps" /%}
@@ -144,8 +151,6 @@
   - the surrounding parenthesis are not rendered
   - elements are not indented (depth 0)
 
-{% code_example id="top_level" /%}
-
 ### Extensions
 
 - Includes all symbols and tagged collections where the symbol
@@ -155,6 +160,6 @@
 - Extensions are **values** unless they are discarded.
 - Discarded extensions are those with symbols ending in `_` they are **non-values**.
 - Extensions are **expanded** if the tagged collection is also **expanded**
-- Otherwise extensions are rendered **inline**
+- Otherwise extensions are **inline**
 
-{% code_example id="extensions" /%}
+{% code_example id="extensible" /%}
