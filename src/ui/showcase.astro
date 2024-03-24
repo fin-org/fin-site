@@ -10,7 +10,7 @@ const { flip = false, id } = Astro.props;
 const { default: Code } = await import(`./code/${id}.html`);
 ---
 
-<div id={id} class="w-full max-w-7xl pt-8 sm:py-20">
+<div id={id} class="w-full max-w-7xl py-8 sm:py-20">
   <div
     class:list={[
       "flex flex-col items-center justify-center gap-4 lg:gap-12 lg:px-8",
