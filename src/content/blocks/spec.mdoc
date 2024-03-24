@@ -17,7 +17,7 @@
   - **Block** elements are expanded, non-container elements that are rendered (and indented) as a
     block
   - **Non-value** means an element is not treated like a **value** when interpreting the notation.
-    Instead, non-values act like comments, only for documentation purposes.
+    Instead, non-values act like comments (documentation only).
 
 ## Symbols
 
@@ -83,7 +83,7 @@
 - A sequence of Unicode code points collected by alternating between the following states
   - `accept`
     - Initiated by a vertical bar **|** `U+007C`.
-    - Accept all code points up to and including the next line feed `U+000A` which transitions the
+    - Accept all code points up to and _including_ the next line feed `U+000A` which transitions the
       state to `ignore`.
   - `ignore`
     - Ignore all space `U+0020` and horizontal tabs `U+0009`.
@@ -105,7 +105,7 @@
 
 - A sequence of children elements surrounded by square brackets **[** `U+005B` and **]** `U+005D`
 - Can be empty (zero length)
-- Element order is significant and must be maintained.
+- Element order is significant.
 - Elements can be almost any type of notation
   - All values including other collections (nesting).
   - All non-values (e.g. [comments](#comments) or discarded [extensions](#extensions)).
@@ -125,14 +125,18 @@
   - [map entries](#map-entries)
 - Other than that they have the same rules as arrays
   - Can be empty (zero length)
-  - Element order is significant and must be maintained.
+  - Element order is significant and unique keys aren't enforced.
+    - The notation conveys an ordered sequence of map entries. It doesn't specify how that is
+      interpreted.
   - Can be _tagged_ with an optional [symbol](#symbols) that immediately precedes the opening
-    bracket
+    parenthesis
   - Are rendered in two forms
     - **inline** if _all_ elements are **inline**
 - Maps are **values** and can be rendered in two forms
   - **inline** if _all_ elements are **inline**
   - **expanded** if _any_ element has **expanded**
+
+{% code_example id="maps" /%}
 
 #### Map Entries
 
@@ -142,7 +146,7 @@
 - The second value is confusingly called the value or val.
 - A map entry is a key/val pair.
 
-{% code_example id="maps" /%}
+{% code_example id="map_entries" /%}
 
 ### Top Level Value
 
@@ -150,6 +154,7 @@
 - Implicit means
   - the surrounding parenthesis are not rendered
   - elements are not indented (depth 0)
+- All code examples in this specification are valid fin payloads (showcase top level maps)
 
 ### Extensions
 
