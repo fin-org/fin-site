@@ -1,17 +1,16 @@
 <pre><code><span class="fin-com"># symbols, numbers & escaped strings are INLINE</span>
-<span class="fin-sym">inline</span><span class="fin-pun"> = </span><span class="fin-str">"start & end on the same line"</span>
+<span class="fin-sym">inline</span><span class="fin-pun"> = </span><span class="fin-str">"contains no newlines (LF)"</span>
 
 <span class="fin-com"># comments and raw strings are EXPANDED</span>
 <span class="fin-sym">expanded</span><span class="fin-pun"> = </span>
-<span class="fin-str">| by definition they require 
-| a newline to terminate</span>
+<span class="fin-str">| they require a newline to terminate</span>
 
-<span class="fin-com"># collections can be either
-# they expand if any element is expanded</span>
+<span class="fin-com"># collections expand if any child has expanded</span>
 <span class="fin-sym">expanded_array</span><span class="fin-pun"> = </span><span class="fin-pun">[</span>
   <span class="fin-com"># this comment expands the array!
-  # elements are indented on each line
-  # comma signals multiple elements per line</span>
+  # - nested elements are indented on each line
+  # - consecutive empty lines are removed
+  # - comma signals multiple elements per line</span>
   <span class="fin-num">1</span><span class="fin-com">,</span> <span class="fin-num">2</span>
 <span class="fin-pun">]</span>
 
