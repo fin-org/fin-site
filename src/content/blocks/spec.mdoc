@@ -126,13 +126,12 @@
   - [map entries](#map-entries)
 - Other than that they have the same rules as arrays
   - Can be empty (zero length)
-  - Element order is significant and unique keys aren't enforced.
-    - The notation conveys an ordered sequence of map entries. It doesn't specify how that is
-      interpreted.
   - Can be _tagged_ with an optional [symbol](#symbols) that immediately precedes the opening
     parenthesis
   - Are rendered in two forms
     - **inline** if _all_ elements are **inline**
+- **TODO** order semantics and handling of duplicate keys.
+  - The raw notation conveys order and says nothing of uniqueness.
 - Maps are **values** and can be rendered in two forms
   - **inline** if _all_ elements are **inline**
   - **expanded** if _any_ element has **expanded**
