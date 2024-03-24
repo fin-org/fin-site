@@ -1,12 +1,22 @@
-## Booleans
+## Booleans {% label type="stable" /%}
 
 Self-explanatory. The symbols `true` or `false`
 
-## Bytes
+## Bytes {% label /%}
+
+- Represent a raw byte array that is the concatenation of hexadecimal strings.
+- Tagged array using `fin:bytes` as the extension symbol.
+- Raw strings will be auto-wrapped with spaced octets.
+- Uppercase will be converted to lowercase.
+- Non-hex codepoints are an error.
 
 {% code_example id="bytes" /%}
 
-## Internet Timestamps
+## Internet Timestamps {% label /%}
 
-- `fin:timestamp`
-- [RFC3339](https://www.rfc-editor.org/rfc/rfc3339)
+- Represents an instant in time with offset from UTC.
+- Tagged array using `fin:timestamp` as the extension symbol.
+  - Single escaped string
+- Format is [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5.6)
+
+{% code_example id="timestamps" /%}

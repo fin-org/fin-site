@@ -1,4 +1,6 @@
 ---
+import Label from "ui/label.astro";
+
 const links = [
   { href: "/spec", label: "Specification", active: Astro.url.pathname.startsWith("/spec") },
   { href: "/builtins", label: "Builtins", active: Astro.url.pathname.startsWith("/builtins") },
@@ -11,17 +13,14 @@ const links = [
   class="flex w-full max-w-7xl flex-col justify-between gap-2 p-4 md:flex-row md:items-center"
 >
   <div>
-    <div class="inline-flex items-center gap-2">
+    <div class="inline-flex items-baseline gap-2">
       <h1
         class="text-2xl font-black leading-none decoration-2 underline-offset-2 hover:underline sm:text-2xl sm:leading-none"
       >
         <a href="/">Fin Text Format</a>
       </h1>
-      <div
-        class="inline-flex rounded bg-red-9 px-2 py-px text-sm font-bold uppercase text-gray-1 dark:bg-redDark-9"
-      >
-        unstable
-      </div>
+
+      <Label type="unstable" />
     </div>
     <p class="text-sm leading-tight tracking-tight text-gray-11 dark:text-grayDark-11">
       A general purpose notation for data interchange.

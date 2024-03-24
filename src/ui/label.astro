@@ -1,0 +1,13 @@
+---
+const { type = "unstable" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "inline-flex -translate-y-0.5 transform rounded px-1.5 text-sm font-semibold uppercase text-gray-1",
+    type === "unstable" ? "bg-red-9 dark:bg-redDark-9" : "",
+    type === "stable" ? "bg-green-9 dark:bg-greenDark-9" : "",
+  ]}
+>
+  {type}
+</div>

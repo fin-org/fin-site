@@ -14,5 +14,14 @@ export default defineMarkdocConfig({
         },
       },
     },
+    label: {
+      render: component("./src/ui/label.astro"),
+      attributes: {
+        type: {
+          type: String,
+          required: false,
+        },
+      },
+    },
   },
 });
