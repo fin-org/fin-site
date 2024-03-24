@@ -1,0 +1,20 @@
+<pre><code><span class="fin-com"># inline</span>
+<span class="fin-sym">b1</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span><span class="fin-str">"15e27aab522a210"</span><span class="fin-pun">]</span>
+ 
+<span class="fin-com"># expanded. spaced octects</span>
+<span class="fin-sym">b1</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span>
+  <span class="fin-str">| d1 4a 02 8c 2a 3a 2b c9</span>
+  <span class="fin-str">| 47 61 02 bb 28 82 34 c4</span>
+  <span class="fin-str">| 15 a2 b0 1f 82 8e a6 2a</span>
+  <span class="fin-str">| c5 b3 e4 2f</span>
+<span class="fin-pun">]</span>
+ 
+<span class="fin-com"># empty line resets wrap width</span>
+<span class="fin-sym">b1</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span>
+  <span class="fin-str">| d1 4a 02 8c 2a 3a 2b c9</span>  
+  <span class="fin-str">| 47 61 02 bb 28 82 34 c4</span>
+  <span class="fin-str">|</span>
+  <span class="fin-str">| 15 a2 b0 1f</span>
+  <span class="fin-str">| 82 8e a6 2a</span>
+  <span class="fin-str">| c5 b3 e4 2f</span>
+<span class="fin-pun">]</span></code></pre>
