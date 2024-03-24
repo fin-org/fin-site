@@ -1,8 +1,14 @@
 <pre><code><span class="fin-sym">examples</span><span class="fin-pun"> = </span><span class="fin-pun">[</span>
-  <span class="fin-str">|raw strings are not interpreted</span>
-  <span class="fin-str">|and can span mutliple lines</span>
+  <span class="fin-str">|a raw string</span>
+ 
+  <span class="fin-str">|raw strings are not interpreted.</span>
+  <span class="fin-str">|  - unescaped \n, #not a comment, </span>
+  <span class="fin-str">|  - this bar | is part of the string.</span>
+  <span class="fin-str">|can span multiple lines.</span>
 
   <span class="fin-str">|another raw string 🐬</span>
+  <span class="fin-str">|this one ends with a line feed</span>
+  <span class="fin-str">|</span>
 
   <span class="fin-com"># below is an empty raw string</span>
   <span class="fin-str">|</span>

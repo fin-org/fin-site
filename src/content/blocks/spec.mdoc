@@ -89,6 +89,7 @@
     - Ignore all space `U+0020` and horizontal tabs `U+0009`.
     - `|` transitions the state back to `accept`.
     - Any other code point terminates the string.
+    - The final line feed is _not_ included in the string.
 - Raw strings are **expanded block values**.
 
 {% code_example id="raw_strings" /%}
