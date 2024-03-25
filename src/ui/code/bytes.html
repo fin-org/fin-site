@@ -1,0 +1,19 @@
+<pre><code><span class="fin-com"># inline escaped strings</span>
+<span class="fin-sym">b1</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span><span class="fin-str">"d14a028c2a3a2bc9"</span><span class="fin-pun">]</span>
+<span class="fin-sym">b2</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span>
+  <span class="fin-com"># concatenation</span>
+  <span class="fin-str">"d14a028c2a3a2bc9"</span><span class="fin-pun">, </span><span class="fin-str">"476102bb288234c4"</span>
+  <span class="fin-str">"15a2b01f828ea62a"</span><span class="fin-pun">, </span><span class="fin-str">"c5b3e42f"</span>
+<span class="fin-pun">]</span>
+ 
+<span class="fin-com"># expanded raw strings</span>
+<span class="fin-sym">b3</span><span class="fin-pun"> = </span><span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span>
+  <span class="fin-com"># spaced octets, auto-wrapped using first line</span>
+  <span class="fin-str">| d1 4a 02 8c 2a 3a 2b c9</span>
+  <span class="fin-str">| 47 61 02 bb 28 82 34 c4</span>
+  <span class="fin-com"># reset auto wrap</span>
+  <span class="fin-str">| 15 a2 b0 1f</span>
+  <span class="fin-str">| 82 8e a6 2a</span>
+  <span class="fin-str">| c5 b3 e4 2f</span>
+<span class="fin-pun">]</span>
+</code></pre>

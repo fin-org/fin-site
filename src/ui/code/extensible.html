@@ -1,0 +1,26 @@
+<pre><code><span class="fin-sym">extensions</span><span class="fin-pun"> = </span><span class="fin-pun">[</span>
+
+  <span class="fin-com"># builtin extensions (start with fin:)</span>
+  <span class="fin-ext">fin:timestamp</span><span class="fin-pun">[</span><span class="fin-str">"2024-02-26T03:01:13.644Z"</span><span class="fin-pun">]</span>
+  <span class="fin-ext">fin:bytes</span><span class="fin-pun">[</span>
+    <span class="fin-str">|f6 69 6e 20 54 d6 78 74</span>
+    <span class="fin-str">|2a 46 6f 72 6d 61 74 0a</span>
+  <span class="fin-pun">]</span>
+  <span class="fin-ext">fin:uuid</span><span class="fin-pun">[</span><span class="fin-str">"c83ccbb6-44d0-4d62-8263-b8afec01f3a2"</span><span class="fin-pun">]</span>
+
+  <span class="fin-com"># booleans are builtins</span>
+  <span class="fin-ext">true</span><span class="fin-pun">, </span><span class="fin-ext">false</span>
+
+  <span class="fin-com"># extensions ending with _ are discarded</span>
+  <span class="fin-ext">fin:_</span><span class="fin-pun"><span class="fin-pun">(</span><span class="fin-sym">is_value</span><span class="fin-pun"> = </span><span class="fin-ext">false</span><span class="fin-pun">,</span> <span class="fin-sym">treated_as</span><span class="fin-pun"> = </span><span class="fin-str">"comment"</span><span class="fin-pun">)</span>
+
+  <span class="fin-com"># custom extensions (start with ext:)</span>
+  <span class="fin-ext">ext:null</span><span class="fin-pun">, </span><span class="fin-ext">ext:nan</span><span class="fin-pun">, </span><span class="fin-ext">ext:int:hex_10fe</span>
+  <span class="fin-ext">ext:loc</span><span class="fin-pun">(</span><span class="fin-sym">x</span><span class="fin-pun"> = </span><span class="fin-num">1</span><span class="fin-pun">,</span> <span class="fin-sym">y</span><span class="fin-pun"> = </span><span class="fin-num">2</span><span class="fin-pun">)</span> 
+  <span class="fin-ext">ext:markdown</span><span class="fin-pun">[</span>
+    <span class="fin-str">|# title </span>
+    <span class="fin-str">|</span>
+    <span class="fin-str">|a **markdown** extension!</span>
+  <span class="fin-pun">]</span>
+<span class="fin-pun">]</span>
+</code></pre>

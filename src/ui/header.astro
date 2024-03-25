@@ -1,0 +1,45 @@
+---
+import Label from "ui/label.astro";
+
+const links = [
+  { href: "/spec", label: "Specification", active: Astro.url.pathname.startsWith("/spec") },
+  { href: "/builtins", label: "Builtins", active: Astro.url.pathname.startsWith("/builtins") },
+  { href: "/roadmap", label: "Roadmap", active: Astro.url.pathname.startsWith("/roadmap") },
+  { href: "https://github.com/fin-org", label: "Code", active: false },
+];
+---
+
+<header
+  class="flex w-full max-w-7xl flex-col justify-between gap-2 p-4 md:flex-row md:items-center"
+>
+  <div>
+    <div class="inline-flex items-baseline gap-2">
+      <h1
+        class="text-2xl font-black leading-none decoration-2 underline-offset-2 hover:underline sm:text-2xl sm:leading-none"
+      >
+        <a href="/">Fin Text Format</a>
+      </h1>
+
+      <Label type="unstable" />
+    </div>
+    <p class="text-sm leading-tight tracking-tight text-gray-11 dark:text-grayDark-11">
+      A general purpose notation for data interchange.
+    </p>
+  </div>
+
+  <div class="flex justify-between gap-2 md:gap-4">
+    {
+      links.map((l) => (
+        <a
+          class:list={[
+            l.active ? "underline" : "",
+            "font-medium text-gray-12 decoration-1 underline-offset-2 dark:text-grayDark-12",
+          ]}
+          href={l.href}
+        >
+          {l.label}
+        </a>
+      ))
+    }
+  </div>
+</header>

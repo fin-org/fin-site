@@ -4,6 +4,8 @@ import iconSVG from "assets/icon.svg";
 import iconAppleSVG from "assets/apple-touch-icon.png";
 import fontUrl from "assets/sono.woff2";
 // import defaultShareImage from "assets/share.jpg";
+import Header from "ui/header.astro";
+import Analytics from "ui/analytics.astro";
 
 export interface Props {
   title: string;
@@ -25,7 +27,7 @@ const {
   ogTitle = title,
   ogDescription = description,
   ogImage, // defaultShareImage.src,
-  themeColor = "#0ea5e9",
+  themeColor,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -53,8 +55,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     {themeColor && <meta name="theme-color" content={themeColor} />}
     <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
     <slot name="head" />
+    {import.meta.env.PROD && <Analytics />}
   </head>
-  <body class="flex h-full flex-col">
+  <body
+    class="flex h-full flex-col items-center bg-white text-gray-12 dark:bg-grayDark-1 dark:text-grayDark-12"
+  >
+    <Header />
     <slot />
+    <div class="flex-grow"></div>
+    <footer class="px-4 py-8 text-center text-gray-11 dark:text-grayDark-11">
+      <div>
+        Fin is released under the
+        <a
+          href="https://github.com/fin-org/fin-site?tab=MIT-1-ov-file"
+          class="font-medium text-gray-12 underline decoration-1 underline-offset-2 hover:decoration-2 dark:text-grayDark-12"
+          >MIT License</a
+        >
+      </div>
+      <div class="text-sm">Created by Michael McClintock & contributors</div>
+    </footer>
   </body>
 </html>

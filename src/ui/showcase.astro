@@ -1,0 +1,29 @@
+---
+import Block from "ui/block.astro";
+
+interface Props {
+  id: string;
+  flip?: boolean;
+}
+
+const { flip = false, id } = Astro.props;
+const { default: Code } = await import(`./code/${id}.html`);
+---
+
+<div id={id} class="w-full max-w-7xl py-10 sm:py-20">
+  <div
+    class:list={[
+      "flex flex-col items-center justify-center gap-4 lg:gap-16 lg:px-8",
+      flip ? "lg:flex-row-reverse" : "lg:flex-row",
+    ]}
+  >
+    <div class="w-full max-w-prose px-4 sm:px-8 lg:px-0">
+      <Block id={id} />
+    </div>
+    <div
+      class="w-full overflow-x-auto border-y border-gray-7 bg-gray-2 p-4 text-sm leading-tight shadow sm:max-w-lg sm:rounded-lg sm:border dark:border-grayDark-7 dark:bg-grayDark-2 dark:shadow-grayDark-4"
+    >
+      <Code />
+    </div>
+  </div>
+</div>

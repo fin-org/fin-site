@@ -1,0 +1,9 @@
+---
+const { default: Html } = await import(`./code/${Astro.props.id}.html`);
+---
+
+<div
+  class="not-prose -mx-4 mt-4 overflow-x-auto border-y border-gray-7 bg-gray-2 p-4 text-sm leading-tight shadow sm:mx-0 sm:rounded-lg sm:border dark:border-grayDark-7 dark:bg-grayDark-2 dark:shadow-grayDark-4"
+>
+  <Html />
+</div>

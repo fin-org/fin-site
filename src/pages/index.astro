@@ -1,7 +1,12 @@
 ---
 import Html from "ui/html.astro";
+import Showcase from "ui/showcase.astro";
 ---
 
 <Html title="Fin Text Format" description="A general purpose notation for data interchange">
-  <h1 class="p-4 text-2xl">fin</h1>
+  <Showcase id="intro" />
+  <Showcase flip={true} id="versatile" />
+  <Showcase id="extensible" />
+  <Showcase flip={true} id="syntax" />
+  <Showcase id="tools" />
 </Html>

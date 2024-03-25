@@ -12,3 +12,24 @@
     U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
     U+FFFD;
 }
+
+@layer components {
+  .fin-com {
+    @apply text-blue-10 dark:text-blueDark-10;
+  }
+  .fin-sym {
+    @apply text-gray-11 dark:text-grayDark-11;
+  }
+  .fin-ext {
+    @apply text-bronze-10 dark:text-bronzeDark-10;
+  }
+  .fin-str {
+    @apply text-green-10 dark:text-greenDark-10;
+  }
+  .fin-num {
+    @apply text-purple-10 dark:text-purpleDark-10;
+  }
+  .fin-pun {
+    @apply text-gray-8 dark:text-grayDark-8;
+  }
+}

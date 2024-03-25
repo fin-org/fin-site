@@ -1,0 +1,29 @@
+Builtins are a curated set of [extensions](/spec#extensions) for universal or common data types.
+Compliant fin libraries support builtins out of the box.
+
+- Stable. [Booleans](#booleans)
+- Unstable. [Bytes](#bytes), [Timestamps](#internet-timestamps)
+- Proposed. UUID, Sets, [... more](https://github.com/orgs/fin-org/discussions)
+
+## Booleans {% label type="stable" /%}
+
+Self-explanatory. The symbols `true` or `false`
+
+## Bytes {% label /%}
+
+- Represent a raw byte array that is the concatenation of hexadecimal strings.
+- Uses a tagged array with `fin:bytes` as the extension symbol.
+- Raw strings will be auto-wrapped with a space between octets.
+- Uppercase will be converted to lowercase.
+- Non-hex code points are invalid.
+
+{% code_example id="bytes" /%}
+
+## Internet Timestamps {% label /%}
+
+- Represents an instant in time with an offset from UTC.
+- Uses a tagged array with `fin:timestamp` as the extension symbol.
+  - Contains a single escaped string for the timestamp.
+- Format is [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5.6)
+
+{% code_example id="timestamps" /%}

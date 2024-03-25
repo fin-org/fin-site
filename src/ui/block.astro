@@ -1,0 +1,35 @@
+---
+import { getEntry } from "astro:content";
+
+interface Props {
+  id: string;
+  fullWidth?: boolean;
+}
+
+const { id, fullWidth = true } = Astro.props;
+const entry = await getEntry("blocks", id);
+if (!entry) throw new Error("block not found");
+const { Content } = await entry.render();
+---
+
+<div
+  class:list={[
+    "prose max-w-none dark:prose-invert",
+    "prose-a:underline prose-a:decoration-1 prose-a:underline-offset-2 hover:prose-a:decoration-2",
+    // blockquote
+    "prose-blockquote:border-0 prose-blockquote:px-0",
+    // pre
+    fullWidth
+      ? "prose-pre:-mx-4 prose-pre:rounded-none prose-pre:sm:mx-0 prose-pre:sm:rounded-md"
+      : "",
+    // code
+    "prose-code:rounded prose-code:px-1 prose-code:py-px",
+    "prose-code:font-sans prose-code:font-normal",
+    "prose-code:bg-gray-4 dark:prose-code:bg-grayDark-5",
+    "prose-code:before:content-[] prose-code:after:content-[]",
+    // img
+    "prose-img:mx-auto prose-img:rounded-md",
+  ]}
+>
+  <Content />
+</div>
