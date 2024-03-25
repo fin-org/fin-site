@@ -5,6 +5,7 @@ import iconAppleSVG from "assets/apple-touch-icon.png";
 import fontUrl from "assets/sono.woff2";
 // import defaultShareImage from "assets/share.jpg";
 import Header from "ui/header.astro";
+import Analytics from "ui/analytics.astro";
 
 export interface Props {
   title: string;
@@ -54,6 +55,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     {themeColor && <meta name="theme-color" content={themeColor} />}
     <link rel="preload" href={fontUrl} as="font" type="font/woff2" crossorigin />
     <slot name="head" />
+    {import.meta.env.PROD && <Analytics />}
   </head>
   <body
     class="flex h-full flex-col items-center bg-white text-gray-12 dark:bg-grayDark-1 dark:text-grayDark-12"
