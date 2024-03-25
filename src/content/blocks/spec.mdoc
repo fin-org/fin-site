@@ -1,6 +1,5 @@
-# Core Fin Specification
-
-- **Unstable**, expect changes.
+- This specification is currently **unstable**, expect changes.
+  - Once stable, there will be no updates (no versions).
 - File extension is `.fin`.
 - MIME type is `application/fin`.
 - The fin format is defined in terms of Unicode text (code points).
@@ -128,13 +127,11 @@
   - Can be empty (zero length)
   - Can be _tagged_ with an optional [symbol](#symbols) that immediately precedes the opening
     parenthesis
-  - Are rendered in two forms
+  - Are **values** and can be rendered in two forms
     - **inline** if _all_ elements are **inline**
+    - **expanded** if _any_ element has **expanded**
 - **TODO** order semantics and handling of duplicate keys.
   - The raw notation conveys order and says nothing of uniqueness.
-- Maps are **values** and can be rendered in two forms
-  - **inline** if _all_ elements are **inline**
-  - **expanded** if _any_ element has **expanded**
 
 {% code_example id="maps" /%}
 
@@ -150,17 +147,16 @@
 
 ### Top Level Value
 
-- The top level value is an _implicit_ [map](#map)
-- Implicit means
+- The top level value is an _implicit_ [map](#maps). Implicit means
   - the surrounding parenthesis are not rendered
-  - elements are not indented (depth 0)
-- All code examples in this specification are valid fin payloads (showcase top level maps)
+  - map elements are not indented
+- All code examples in this specification are valid fin payloads (top level maps)
 
 ### Extensions
 
 - Includes all symbols and tagged collections where the symbol
-  - starts with `fin:` (builtin extensions)
-  - is `true` or `false` (considered builtin)
+  - starts with `fin:` ([builtin](/builtins) extensions)
+  - is `true` or `false` (considered [builtin](/builtins#booleans))
   - starts with `ext:` (custom extension)
 - Extensions are **values** unless they are discarded.
 - Discarded extensions are those with symbols ending in `_` they are **non-values**.
