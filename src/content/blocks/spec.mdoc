@@ -14,9 +14,17 @@
   - **Expanded** is the opposite. Expanded elements contain at least one line feed.
   - **Container** elements can include (nest) other elements (children).
   - **Block** elements are expanded, non-container elements that are rendered (and indented) as a
-    block
+    block.
   - **Non-value** means an element is not treated like a **value** when interpreting the notation.
     Instead, non-values act like comments (documentation only).
+
+## Gaps
+
+- The following codepoints are accepted between other notation elements.
+  - space `U+0020`
+  - **\t** tab `U+0009`
+  - **\n** line feed `U+000A`
+  - **\r** carriage return `U+000D`
 
 ## Symbols
 
@@ -41,8 +49,8 @@
 - Numbers can contain the following code points
   - **0-9** decimal digits `U+0030 - U+0039`
   - **-** hyphen `U+002D`
-  - **.** full stop `U+002E`
-  - **e** lowercase letter e `U+0065`
+  - A single **.** full stop `U+002E`
+  - A single **e** lowercase letter e `U+0065`.
 - Syntax notation
   ```
   dig  = "0" ... "9" .
